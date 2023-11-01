@@ -1,0 +1,43 @@
+
+//あとでtailwindのthemeに置き換えられるなら置き換える
+:root
+  --background: #FFFFFF
+  --surface: #F2F6F5
+  --offwhite: #F2F2F2
+  --primary: #2fa69e
+  --primary-light: #37bcb3
+  --primary-dark: #248680
+  --secondary: #2d4693
+  --tertiary: #c3ebe9
+  --error: #ef446f
+  --info: #4fb2d0
+  --success: #34c669
+  --warning: #f1b959
+
+html
+  scroll-behavior: smooth
+
+body
+  position: relative
+  @apply bg-black text-white
+
+p
+  @apply text-base
+
+:root
+  --stroke-color: white
+
+.text-stroke-1
+  text-shadow: -1px -1px 0 var(--stroke-color), 1px -1px 0 var(--stroke-color), -1px 1px 0 var(--stroke-color), 1px 1px 0 var(--stroke-color)
+.text-stroke-2
+  text-shadow: -2px -2px 0 var(--stroke-color), 2px -2px 0 var(--stroke-color), -2px 2px 0 var(--stroke-color), 2px 2px 0 var(--stroke-color)
+.text-stroke-3
+  text-shadow: -3px -3px 0 var(--stroke-color), 3px -3px 0 var(--stroke-color), -3px 3px 0 var(--stroke-color), 3px 3px 0 var(--stroke-color)
+.text-stroke-4
+  text-shadow: -4px -4px 0 var(--stroke-color), 4px -4px 0 var(--stroke-color), -4px 4px 0 var(--stroke-color), 4px 4px 0 var(--stroke-color)
+
+.text-stroke-black
+  --stroke-color: black
+
+.text-stroke-white
+  --stroke-color: white
