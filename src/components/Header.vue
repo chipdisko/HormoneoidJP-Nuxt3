@@ -5,12 +5,12 @@
   <header class="fixed top-0 left-0 w-full z-30">
     <nav class="bg-transparent border-gray-200 px-4 py-2.5  bg-gradient-to-b from-black to-transparent">
       <div class="flex flex-wrap justify-between items-center py-2">
-        <div class="flex items-center gap-4">
+        <div class="flex items-center gap-4 w-full md:w-auto justify-between md:justify-start">
           <NuxtLink to="/" class=" hover:text-orange-800">
             <Logo class="text-2xl" />
           </NuxtLink>
           <span class="text-[.8em] flex gap-2 items-center">
-            powered by <NuxtLink to="https://aajamusic.com/"><LogoAaja class="fill-white w-4 hover:fill-orange-800" /></NuxtLink>
+            hosted on <NuxtLink to="https://aajamusic.com/"><LogoAaja class="fill-white w-4 hover:fill-orange-800" /></NuxtLink> channel 2
           </span>
         </div>
         <!-- buttons
