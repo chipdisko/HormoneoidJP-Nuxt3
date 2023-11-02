@@ -52,7 +52,7 @@ const data = {
 }
 </script>
 <template>
-  <section class="h-screen lg:h-[700px] lg:min-w-[600px] bg-base-200 grid grid-cols-2">
+  <section class="lg:sticky top-0 left-0 h-screen bg-base-200 grid grid-cols-2">
     <div class="h-full -mr-12">
       <img :src="Chrissy" alt="Chrissy" class="w-full h-full object-cover object-top" />
     </div>
