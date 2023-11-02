@@ -6,7 +6,7 @@ const { soundcloudId } = defineProps<{
 }>()
 
 const soundcloudStore = useSoundcloud()
-const { setIsPlaying, setPlayingId } = soundcloudStore;
+const { setIsOpen, setIsPlaying, setPlayingId } = soundcloudStore;
 const { isPlaying, playingId } = storeToRefs(soundcloudStore);
 
 const isDisabled = ref(false);
@@ -25,7 +25,7 @@ const handlePlay = ():void => {
 }
 </script>
 <template>
-  <button @click="handlePlay" class="border-white border hover:bg-orange-600 rounded-full flex items-center justify-center h-20 w-20 text-5xl text-white opacity-70 hover:opacity-90 drop-shadow-md" :disabled="isDisabled" >
+  <button @click="handlePlay" class="border-white border hover:bg-orange-600 rounded-full flex items-center justify-center h-16 w-16 text-5xl text-white opacity-80 hover:opacity-90 drop-shadow-md" :disabled="isDisabled" >
     <Icon v-if="!isPlaying || (playingId !== soundcloudId)" name="mdi:play" />
     <Icon v-else name="mdi:stop" />
   </button>

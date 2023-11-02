@@ -11,6 +11,7 @@ type Props = {
 };
 const { content } = defineProps<Props>();
 const soundcloudStore = useSoundcloud()
+const { setIsOpen } = soundcloudStore;
 const { isPlaying, playingId } = storeToRefs(soundcloudStore)
 
 function extractNumberFromString(str: string):(number | undefined)  {
@@ -23,7 +24,7 @@ const soundcloudId = content.soundcloud_embedcode ? extractNumberFromString(cont
 </script>
 
 <template>
-  <div class="wrapper group relative block rounded-lg bg-black w-fit hover:scale-105 transition-transform .2s ease-in-out">
+  <div class="wrapper group relative flex flex-col rounded-lg bg-black w-fit hover:scale-105 transition-transform .2s ease-in-out">
     <Image
       alt="Developer"
       :src="content.jacket?.url"
@@ -48,7 +49,7 @@ const soundcloudId = content.soundcloud_embedcode ? extractNumberFromString(cont
       <OnairPlayButton v-if="soundcloudId" :soundcloudId="soundcloudId" class="mt-6" />
   
     </div>
-    <div class="absolute bottom-0 left-0 w-full">
+    <div class="w-full mt-auto">
       <div
         class="translate-y-8 transform opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100"
       >

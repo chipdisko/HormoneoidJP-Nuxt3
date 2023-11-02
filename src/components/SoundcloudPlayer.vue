@@ -28,9 +28,9 @@ const handleOpener = () => {
           <Icon
             class=" transition-transform duration-500 ease-in-out"
             :class="{
-              'rotate-90': isOpen,
-              'rotate-45': !isOpen
-            }" name="mdi:escalator-up"
+              'rotate-180': isOpen,
+              'rotate-0': !isOpen
+            }" name="mdi:arrow-up-drop-circle-outline"
           />
         </button>
         <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" :src="`https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/${playingId}&color=%23ff5500&auto_play=${isPlaying ? 'true':'false'}&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true`"></iframe>
