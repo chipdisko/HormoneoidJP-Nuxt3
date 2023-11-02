@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import Chrissy from './chrissy.jpg';
+// reference https://dev.to/afif/we-can-finally-animate-css-gradient-kdk
+import Chrissy from './chrissy.webp';
 
 const data = {
   venue: "CIRCUS OSAKA",

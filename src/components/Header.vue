@@ -1,16 +1,18 @@
 <script setup lang="ts">
-
+// reference: https://flowbite.com/blocks/marketing/header/
 </script>
 <template>
   <header class="fixed top-0 left-0 w-full z-10">
     <nav class="bg-transparent border-gray-200 px-4 py-2.5  bg-gradient-to-b from-black to-transparent">
       <div class="flex flex-wrap justify-between items-center py-2">
-        <a href="https://flowbite.com" class="flex items-center gap-4">
-          <Logo class="text-2xl" />
+        <div class="flex items-center gap-4">
+          <NuxtLink to="/" class=" hover:text-orange-800">
+            <Logo class="text-2xl" />
+          </NuxtLink>
           <span class="text-[.8em] flex gap-2 items-center">
-            powered by <NuxtLink to="https://aajamusic.com/"><LogoAaja class="fill-black dark:fill-white w-4" /></NuxtLink>
+            powered by <NuxtLink to="https://aajamusic.com/"><LogoAaja class="fill-white w-4 hover:fill-orange-800" /></NuxtLink>
           </span>
-        </a>
+        </div>
         <!-- buttons
         <div class="flex items-center lg:order-2">
           <a href="#" class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">Log in</a>

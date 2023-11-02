@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// reference: https://www.hyperui.dev/components/marketing/cards
 import { storeToRefs } from 'pinia';
 import { useSoundcloud } from "~/store/soundcloud";
 
