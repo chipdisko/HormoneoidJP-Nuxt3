@@ -97,14 +97,11 @@ const linkType: "mailto" | "tel" | "pdf" | "external" | "anchor" | "internal" | 
   </NuxtLink>
 </template>
 
-<style lang="scss" scoped>
-.icon {
-  @apply flex-shrink-0 flex-grow-0;
-}
-.default {
-  @apply align-bottom text-[1.5em];
-}
-.hasUnderline {
-  @apply underline underline-offset-8 decoration-2;
-}
+<style lang="sass" scoped>
+.icon
+  @apply flex-shrink-0 flex-grow-0
+.default
+  @apply align-bottom text-[1.5em]
+.hasUnderline
+  @apply underline underline-offset-8 decoration-2
 </style>

@@ -1,6 +1,11 @@
+
+import type { _black } from '#tailwind-config/theme/accentColor';
+
+import type { _black } from '#tailwind-config/theme/accentColor';
 <script setup lang="ts">
 // reference https://dev.to/afif/we-can-finally-animate-css-gradient-kdk
 import Chrissy from './chrissy.webp';
+import Flyer from './flyer-sq.webp';
 
 const data = {
   venue: "CIRCUS OSAKA",
@@ -52,11 +57,11 @@ const data = {
 }
 </script>
 <template>
-  <section class="lg:sticky top-0 left-0 h-screen bg-base-200 grid grid-cols-2">
+  <section class="lg:sticky top-0 left-0 min-h-screen bg-base-200 grid grid-cols-2">
     <div class="h-full -mr-12">
       <img :src="Chrissy" alt="Chrissy" class="w-full h-full object-cover object-top" />
     </div>
-    <div class="relative h-full py-12 lg:py-24 text-white bg-black flex flex-col gap-12 justify-center px-4 md:px-12 before:content-[''] before:absolute before:top-0 before:-left-12 before:w-12 before:h-full before:bg-gradient-to-l before:from-black before:to-transparent ">
+    <div class="relative h-full py-12 pt-20 lg:py-24 text-white bg-black flex flex-col gap-8 md:gap-12 justify-center px-4 md:px-12 before:content-[''] before:absolute before:top-0 before:-left-12 before:w-12 before:h-full before:bg-gradient-to-l before:from-black before:to-transparent ">
       <h2 class="font-primary text-5xl md:text-7xl lg:text-5xl xl:text-6xl 2xl:text-8xl flex flex-col gap-0">
         <small class="block font-tertiary text-[.4em] tracking-tight">
           <Logo /> <span class="italic text-[.8em]">presents</span>
@@ -91,6 +96,7 @@ const data = {
           </li>
         </ul>
       </div>
+      <img :src="Flyer" alt="Flyer" class="flyer self-center aspect-square w-[100px] lg:w-[200px] object-cover" />
       <div class="font-secondary">
         <div class="metas">
           <div class="meta">
@@ -149,8 +155,11 @@ const data = {
   -webkit-text-stroke: 1px #FFF
   background-position: bottom
   
+.flyer
+  -webkit-box-reflect: below 0 linear-gradient( transparent, rgba(black,.3) )
+  @apply skew-y-3 translate-y-4
 .metas
-  @apply flex flex-col gap-4
+  @apply flex flex-col gap-2 md:gap-4
 .meta
   width: fit-content
   @apply md:flex  gap-1 md:gap-3 md:items-center
