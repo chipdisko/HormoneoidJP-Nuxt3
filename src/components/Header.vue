@@ -2,7 +2,7 @@
 // reference: https://flowbite.com/blocks/marketing/header/
 </script>
 <template>
-  <header class="fixed top-0 left-0 w-full z-10">
+  <header class="fixed top-0 left-0 w-full z-30">
     <nav class="bg-transparent border-gray-200 px-4 py-2.5  bg-gradient-to-b from-black to-transparent">
       <div class="flex flex-wrap justify-between items-center py-2">
         <div class="flex items-center gap-4">
