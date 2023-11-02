@@ -34,14 +34,14 @@ const soundcloudId = content.soundcloud_embedcode ? extractNumberFromString(cont
       fit="crop"
       class="absolute inset-0 h-full w-full rounded-lg object-cover opacity-75 transition-opacity group-hover:opacity-40"
     />
-    <div class="relative z-10 p-2 sm:p-2 lg:p-3 pr-4">
+    <div class="relative z-10 p-2 pb-4 lg:p-3 lg:pb-8">
       <p class="text-sm font-tertiary font-medium uppercase tracking-widest text-pink-500">
         <span class="bg-black">
           {{ content.date  }}
         </span>
       </p>
   
-      <h3 class="title text-xl text-stroke-1 text-stroke-black font-primary font-bold tracking-wider sm:text-3xl">
+      <h3 class="title text-2xl text-stroke-1 text-stroke-black font-primary font-bold tracking-wider sm:text-3xl">
         {{ content.title }}
       </h3>
 
@@ -52,8 +52,8 @@ const soundcloudId = content.soundcloud_embedcode ? extractNumberFromString(cont
       <div
         class="translate-y-8 transform opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100"
       >
-        <p v-if="content.description" class="text-sm text-tertiary text-white min-w-0">
-          {{ content.description.substring(0, 140) + '...' }}
+        <p v-if="content.description" class=" text-sm font-secondary p-2 text-white leading-tight">
+          <span class="border-b-white border-b">{{ content.description.substring(0, 140) + '...' }}</span>
         </p>
       </div>
     </div>
