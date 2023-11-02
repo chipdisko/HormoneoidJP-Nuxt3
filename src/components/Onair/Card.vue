@@ -11,7 +11,6 @@ type Props = {
 };
 const { content } = defineProps<Props>();
 const soundcloudStore = useSoundcloud()
-const { setIsOpen } = soundcloudStore;
 const { isPlaying, playingId } = storeToRefs(soundcloudStore)
 
 function extractNumberFromString(str: string):(number | undefined)  {
