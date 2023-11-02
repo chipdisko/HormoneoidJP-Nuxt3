@@ -1,4 +1,6 @@
 
+import type { _white } from '#tailwind-config/theme/accentColor';
+
 import type { _black } from '#tailwind-config/theme/accentColor';
 
 import type { _black } from '#tailwind-config/theme/accentColor';
@@ -96,7 +98,7 @@ const data = {
           </li>
         </ul>
       </div>
-      <img :src="Flyer" alt="Flyer" class="flyer self-center aspect-square w-[100px] lg:w-[200px] object-cover" />
+      <img :src="Flyer" alt="flyer" class="flyer self-center aspect-square w-[100px] lg:w-[200px] object-cover" />
       <div class="font-secondary">
         <div class="metas">
           <div class="meta">
@@ -157,6 +159,9 @@ const data = {
   
 .flyer
   -webkit-box-reflect: below 0 linear-gradient( transparent, rgba(black,.3) )
+  border-top: 1px solid black
+  border-right: 1px solid black
+  box-shadow: 5px -5px 0 1px black, 7px -7px 0 1px #659779
   @apply skew-y-3 translate-y-4
 .metas
   @apply flex flex-col gap-2 md:gap-4
