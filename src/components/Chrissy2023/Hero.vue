@@ -129,15 +129,26 @@ const data = {
     --rotation: 90deg
   100%
     --rotation: 450deg
+@keyframes colorSlide
+  0%
+    background-position: 200% 100%
+  100%
+    background-position: 0 0 
 .chrissy
-  background-image: conic-gradient(from var(--rotation),#12c2e9, #79CBCA, #c471ed, #E684AE,#f64f59, #77A1D3, #12c2e9,)
+  background-image: linear-gradient(to left top, #12c2e9, #79CBCA, #c471ed, #E684AE,#f64f59, #77A1D3, #12c2e9,)
+  animation: colorSlide 2s linear infinite
+  background-repeat: repeat
+  background-size: 200% 100%
+  @screen md
+    background-image: conic-gradient(from var(--rotation), #12c2e9, #79CBCA, #c471ed, #E684AE,#f64f59, #77A1D3, #12c2e9,)
+    animation: colorRotate 1s linear infinite
   padding-bottom: .11em
   color: transparent
-  -webkit-background-clip: text
+  background-clip: text
   display: inline-block
   -webkit-text-stroke: 1px #FFF
   background-position: bottom
-  animation: colorRotate 1s linear infinite
+  
 .metas
   @apply flex flex-col gap-4
 .meta
