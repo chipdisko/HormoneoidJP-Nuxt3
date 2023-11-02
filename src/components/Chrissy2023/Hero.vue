@@ -12,7 +12,7 @@ import Flyer from './flyer-sq.webp';
 const data = {
   venue: "CIRCUS OSAKA",
   date: "2023-11-11 SAT",
-  time: "23:00",
+  time: "22:30",
   charges: [{
     type: "DOOR",
     money: 2000,
@@ -65,8 +65,8 @@ const data = {
     </div>
     <div class="relative h-full py-12 pt-20 lg:py-24 text-white bg-black flex flex-col gap-8 md:gap-12 justify-center px-4 md:px-12 before:content-[''] before:absolute before:top-0 before:-left-12 before:w-12 before:h-full before:bg-gradient-to-l before:from-black before:to-transparent ">
       <h2 class="font-primary text-5xl md:text-7xl lg:text-5xl xl:text-6xl 2xl:text-8xl flex flex-col gap-0">
-        <small class="block font-tertiary text-[.4em] tracking-tight">
-          <Logo /> <span class="italic text-[.8em]">presents</span>
+        <small class="block font-tertiary text-[.5em] tracking-tight leading-[.6] mb-[.6em]">
+          <Logo /> <span class="italic text-[.6em]">presents</span>
         </small>
         <span class="font-semibold text-black">
           <span class="chrissy">Chrissy</span> <span class="text-stroke-2">in Osaka</span>

@@ -1,3 +1,3 @@
 <template>
-  <span class="font-primary self-center font-extrabold whitespace-nowrap tracking-tight ">Hormoneoid JP</span>
+  <span class="font-official font-medium tracking-wide self-center whitespace-nowrap ">HORMONEOID JP</span>
 </template>

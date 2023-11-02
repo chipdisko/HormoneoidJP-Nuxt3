@@ -15,6 +15,7 @@ const handlePlay = ():void => {
   if ( playingId.value === soundcloudId ) {
     setPlayingId(null);
   } else {
+    setIsOpen(true);
     setPlayingId(soundcloudId);
   }
   isDisabled.value = true;

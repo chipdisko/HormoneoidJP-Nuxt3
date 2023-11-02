@@ -7,7 +7,7 @@
       <div class="flex flex-wrap justify-between items-center py-2">
         <div class="flex items-center gap-4 w-full md:w-auto justify-between md:justify-start">
           <NuxtLink to="/" class=" hover:text-orange-800">
-            <Logo class="text-2xl" />
+            <h1><Logo class="text-3xl" /></h1>
           </NuxtLink>
           <span class="text-[.8em] flex gap-2 items-center">
             hosted on <NuxtLink to="https://aajamusic.com/"><LogoAaja class="fill-white w-4 hover:fill-orange-800" /></NuxtLink> channel 2
