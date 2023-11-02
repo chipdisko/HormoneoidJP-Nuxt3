@@ -53,7 +53,7 @@ const soundcloudId = content.soundcloud_embedcode ? extractNumberFromString(cont
         class="translate-y-8 transform opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100"
       >
         <p v-if="content.description" class=" text-sm font-secondary p-2 text-white leading-tight">
-          <span class="border-b-white border-b">{{ content.description.substring(0, 140) + '...' }}</span>
+          <span class="">{{ content.description.substring(0, 140) + '...' }}</span>
         </p>
       </div>
     </div>
