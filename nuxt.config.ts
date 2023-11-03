@@ -31,7 +31,7 @@ export default defineNuxtConfig({
   },
   app: {
     head: {
-      title: 'Hormoneoid JP',
+      title: 'Hormoneoid JP -- from Osaka to London ans the world.',
       meta: [{ name: 'description', content: 'You are listening to Hormoneoid JP. Enjoy!!' }],
       link: [
         { rel: 'icon', href: '/favicon.ico' },
@@ -42,7 +42,6 @@ export default defineNuxtConfig({
   microCMS: {
     serviceDomain: process.env.NUXT_PRIVATE_MICROCMS_SERVICE_DOMAIN || 'hormoneoidjp',
     apiKey: process.env.NUXT_PRIVATE_MICROCMS_API_KEY || 'test',
-    target: 'all',
   },
   css: ["~/assets/styles/app.sass"],
   gtag: {
