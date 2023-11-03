@@ -16,7 +16,7 @@ const handleOpener = () => {
 <template>
   <div v-if="playingId">
     <div
-      class="fixed z-20 bottom-0 left-0 w-full md:w-[700px] transition-all duration-500 ease-in-out"
+      class="fixed z-20 bottom-0 w-full lg:w-fit left-0 transition-all duration-500 ease-in-out"
       :class="{
         ' translate-y-full': !isOpen,
         ' translate-y-0': isOpen
