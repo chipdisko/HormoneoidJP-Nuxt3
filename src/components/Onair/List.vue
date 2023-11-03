@@ -35,7 +35,7 @@ const numPages = Math.ceil((data.value?.totalCount || 0) / numLimit);
   <div v-if="!data">something happend. please reload;</div>
   <div v-else-if="!data.totalCount" class="text-center">現在、新着情報はありません。</div>
   <div v-else class="flex gap-8 flex-wrap px-4">
-    <OnairCard v-for="content in data.contents" :key="content.id" :content="content" class="z-10" :style="{ width: Math.floor(Math.random() * 140) + 200 + 'px' }" />
+    <OnairCard v-for="article in data.contents" :key="article.id" :article="article" class="z-10" :style="{ width: Math.floor(Math.random() * 140) + 200 + 'px' }" />
     <!--
     <NewsItem :categoryId="categoryId" v-for="content in data.contents" :key="content.id" :content="content" />
     <OnairPagination v-if="pagination && data.totalCount > numLimit" :numPages="numPages" :current="page" />

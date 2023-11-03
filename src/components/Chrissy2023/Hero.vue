@@ -1,9 +1,3 @@
-
-import type { _white } from '#tailwind-config/theme/accentColor';
-
-import type { _black } from '#tailwind-config/theme/accentColor';
-
-import type { _black } from '#tailwind-config/theme/accentColor';
 <script setup lang="ts">
 // reference https://dev.to/afif/we-can-finally-animate-css-gradient-kdk
 import Chrissy from './chrissy.webp';

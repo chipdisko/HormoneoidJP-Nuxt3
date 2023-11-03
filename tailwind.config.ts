@@ -12,12 +12,28 @@ module.exports = {
   },
   theme: {
     extend: {
+      animation: {
+        "text-focus-in": "text-focus-in 1s cubic-bezier(0.550, 0.085, 0.680, 0.530) both"
+      },
+      keyframes: {
+          "text-focus-in": {
+              "0%": {
+                  filter: "blur(12px)",
+                  opacity: "0",
+              },
+              to: {
+                  filter: "blur(9px) brightness(130%) contrast(300%) saturate(70%) sepia(10%)",
+                  opacity: "0.8",
+              }
+          }
+      },
       fontFamily: {
         sans: ['Helvetica Neue', 'Helvetica', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Arial', 'Yu Gothic', 'Meiryo', 'sans-serif'],
         serif: ['serif'],
         primary: ['Dosis', 'sans-serif'],
         secondary: ['Courier Prime', 'sans-serif'],
         tertiary: ['Sometype Mono', 'monospace'],
+        handwriting: ['Playpen Sans', 'sans-serif'],
       },
       colors:{
 

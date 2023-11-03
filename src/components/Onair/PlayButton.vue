@@ -1,32 +1,59 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
 import { useSoundcloud } from "~/store/soundcloud";
-const { soundcloudId } = defineProps<{
-  soundcloudId: number;
+const { $extractSoundcloudIdFromEmbedcode } = useNuxtApp();
+const { embedcode } = defineProps<{
+  embedcode: string;
 }>()
 
+const mySoundcloudId = ref(null);
+mySoundcloudId.value = $extractSoundcloudIdFromEmbedcode(embedcode);
 const soundcloudStore = useSoundcloud()
 const { setIsOpen, setIsPlaying, setPlayingId } = soundcloudStore;
 const { isPlaying, playingId } = storeToRefs(soundcloudStore);
 
 const isDisabled = ref(false);
 const handlePlay = ():void => {
-  console.log('handlePlay', soundcloudId);
-  if ( playingId.value === soundcloudId ) {
+  console.log('handlePlay', mySoundcloudId.value);
+  if ( playingId.value === mySoundcloudId.value ) {
     setPlayingId(null);
   } else {
     setIsOpen(true);
-    setPlayingId(soundcloudId);
+    setPlayingId(mySoundcloudId.value);
   }
   isDisabled.value = true;
   setTimeout(() => {
     isDisabled.value = false;
   }, 1000);
 }
+
+const isActive = ref(false);
+effect(() => {
+  isActive.value = isPlaying.value && playingId.value === mySoundcloudId.value;
+})
+
+watch( [ isPlaying, playingId ], () => {
+  isActive.value = isPlaying.value && playingId.value === mySoundcloudId.value;
+})
+
 </script>
 <template>
-  <button @click="handlePlay" class="border-white border hover:bg-orange-600 rounded-full flex items-center justify-center h-16 w-16 text-5xl text-white opacity-80 hover:opacity-90 drop-shadow-md" :disabled="isDisabled" >
-    <Icon v-if="!isPlaying || (playingId !== soundcloudId)" name="mdi:play" />
-    <Icon v-else name="mdi:stop" />
+  <button
+    @click="handlePlay"
+    :disabled="isDisabled"
+    class="button"
+    :class="{
+      'isActive': isActive,
+      'isDisabled': isDisabled
+    }"
+  >
+    <Icon v-if="isDisabled" name="svg-spinners:ring-resize" />
+    <Icon v-else-if="isActive" name="svg-spinners:pulse-rings-2" />
+    <Icon v-else name="mdi:play" />
+    <slot />
   </button>
 </template>
+<style lang="sass" scoped>
+.button:disabled
+  @apply bg-transparent border-slate-100 text-slate-100
+</style>

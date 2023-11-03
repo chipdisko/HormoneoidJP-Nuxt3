@@ -1,5 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  ssr: false,
   modules: [
     //'@vueuse/nuxt',
     '@nuxt/image',
@@ -19,6 +20,9 @@ export default defineNuxtConfig({
         wght: [400, 700],
         ital: [400, 700],
       },
+      'Playpen Sans': {
+        wght: [200,400,700]
+      }
     }
   },
   tailwindcss: {
@@ -32,6 +36,7 @@ export default defineNuxtConfig({
         { rel: 'icon', href: '/favicon.ico' },
       ],
     },
+    pageTransition: { name: 'page', mode: 'out-in' }
   },
   microCMS: {
     serviceDomain: process.env.NUXT_PRIVATE_MICROCMS_SERVICE_DOMAIN || 'hormoneoidjp',

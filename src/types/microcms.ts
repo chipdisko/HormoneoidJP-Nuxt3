@@ -25,5 +25,9 @@ export type Onair = {
   host?: ('KA4U' | 'Ascalypso')[];
   description?: string;
   tracklist?: string;
+  tracklists?: {
+    artist: string;
+    tracklist: string;
+  }
   soundcloud_embedcode?: string;
 } & MicroCMSListContent;
