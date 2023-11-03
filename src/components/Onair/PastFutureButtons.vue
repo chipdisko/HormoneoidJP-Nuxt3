@@ -50,6 +50,7 @@ const futureArticle = futureOneArticles.value?.contents[0];
   </div>
 </template>
 <style lang="sass" scoped>
+
 .button
   @apply relative flex flex-col items-center justify-center bg-slate-100/0 backdrop-blur
   @apply h-24 sm:h-24 md:h-28 sm:text-base md:text-xl lg:text-3xl
@@ -82,6 +83,10 @@ const futureArticle = futureOneArticles.value?.contents[0];
     box-shadow: 0 0px 40px rgba(white, .2)
   @screen lg 
     @apply fixed top-0 h-full w-16 hover:w-36 hover:bg-black/10 grid text-white/50
+    &:active
+      @apply bg-slate-950/90
+      transition-duration: .02s
+
     > *
       grid-row: 1/-1
       grid-column: 1/-1

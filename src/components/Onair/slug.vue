@@ -121,8 +121,10 @@ watch( [ isPlaying, playingId ], () => {
         />
       </div>
     </div>
+    
     <OnairPastFutureButtons :article="article" class="mt-auto" />
-    <NuxtLink to="/" class="w-[80%] max-w-[400px] mx-auto mb-48 lg:mb-28 border-white/80 border h-[2.6em] flex items-center justify-center gap-[.5em] text-white text-xl md:text-2xl hover:text-lime-500 hover:border-lime-500 hover:bg-black transition-colors">
+
+    <NuxtLink to="/" class="w-[80%] max-w-[400px] mx-auto mb-48 lg:mb-28 border-white/80 border h-[2.6em] flex items-center justify-center gap-[.5em] text-white text-xl md:text-2xl hover:text-lime-500 hover:border-lime-500 hover:bg-slate-950/30 active:bg-black active:duration-75 transition-colors">
       <Icon name="ph:caret-left-fill" />
       Home
     </NuxtLink>
