@@ -13,10 +13,6 @@ const { article } = defineProps<{
 
 const articleDateInLondon = $getOnairTime(article.date) ?? '';
 
-watch( article.value, (oldState, newState) => {
-  document.title = `${newState} | ${$siteName}`;
-});
-
 function nl2br(str) {
   return str.replace(/\n/g, '<br>');
 }

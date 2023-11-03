@@ -5,6 +5,7 @@ const { data: article } = await useMicroCMSGetListDetail<OnairProps>({
   endpoint: "onairs",
   contentId: params.slug,
 });
+useHead({ title: `${article.value.title} | Hormoneoid JP` })
 </script>
 
 <template>
