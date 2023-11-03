@@ -23,7 +23,7 @@ module.exports = {
               },
               to: {
                   filter: "blur(9px) brightness(130%) contrast(300%) saturate(70%) sepia(10%)",
-                  opacity: "0.8",
+                  opacity: "0.6",
               }
           }
       },

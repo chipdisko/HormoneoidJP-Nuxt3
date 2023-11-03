@@ -46,7 +46,7 @@ watch( [ isPlaying, playingId ], () => {
     :src="article.jacket.url"
     :alt="article.title"
     lazy
-    class="bg fixed top-0 left-0 z-0 w-full h-full object-cover object-top "
+    class="bg pointer-events-none fixed top-0 left-0 z-0 w-full h-full object-cover object-top "
   />
   <div class="relative z-[1] flex flex-col gap-16 pt-24 min-h-[100dvh] box-border">
     <div class="img_parent flex flex-col sm:flex-row gap-10 lg:gap-16 xl:gap-20 2xl:max-w-screen-2xl mx-4 md:mx-12 lg:mx-20 2xl:mx-auto">
@@ -139,6 +139,7 @@ watch( [ isPlaying, playingId ], () => {
   -webkit-text-stroke: 2px #FFF
 
 .bg
+  // animation opacity and filter on tailwind.config
   @apply animate-text-focus-in
 .frame
   box-shadow: 0 0 0 5px black, 0 0 0 6px white

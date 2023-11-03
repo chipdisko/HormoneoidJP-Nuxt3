@@ -9,6 +9,7 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     'nuxt-icon',
     'nuxt-microcms-module',
+    'nuxt-gtag',
   ],
   googleFonts: {
     families: {
@@ -44,6 +45,9 @@ export default defineNuxtConfig({
     target: 'all',
   },
   css: ["~/assets/styles/app.sass"],
+  gtag: {
+    id:'G-MRJ4NS13FV'
+  },
   devtools: { enabled: true },
   srcDir: 'src/',
 })
