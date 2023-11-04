@@ -102,7 +102,7 @@ if(article.soundcloud_embedcode){
           TRACKLIST
         </h3>
       </div>
-      <div
+      <!-- <div
         v-if="article.tracklists"
         class=""
       >
@@ -112,9 +112,9 @@ if(article.soundcloud_embedcode){
           v-html="nl2br(tracklist)"
           class="bg-black"
         />
-      </div>
+      </div> -->
       <div
-        v-else-if="article.tracklist"
+        v-if="article.tracklist"
         class="max-w-[1000px] mx-auto font-secondary text-sm lg:text-2xl leading-snug backdrop-blur-lg bg-slate-950/40 lg:bg-black/0 lg:hover:bg-slate-950/70 transition-colors border-white/10 border text-stroke-1 text-stroke-black"
       >
         <span
