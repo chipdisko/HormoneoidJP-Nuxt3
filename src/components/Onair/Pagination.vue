@@ -60,13 +60,13 @@ function isLastPage(current: number, numPages: number) {
 <style scoped lang="sass">
 .current,
 .link
-  @apply flex items-center justify-center px-4 h-10 border-l border-primary hover:bg-surface no-underline
+  @apply flex items-center justify-center px-4 h-10 border-l border-primary hover:bg-black no-underline
 
 
 .current
   @apply border-primary bg-primary text-white cursor-default hover:bg-primary hover:text-white
 
 .link
-  @apply hover:bg-surface
+  @apply hover:bg-black
 
 </style>
