@@ -42,6 +42,7 @@ export default defineNuxtConfig({
   microCMS: {
     serviceDomain: process.env.NUXT_PRIVATE_MICROCMS_SERVICE_DOMAIN || 'hormoneoidjp',
     apiKey: process.env.NUXT_PRIVATE_MICROCMS_API_KEY || 'test',
+    target: 'all',
   },
   css: ["~/assets/styles/app.sass"],
   gtag: {
