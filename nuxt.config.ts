@@ -1,9 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  routeRules: {
-    '/': { prerender: true },
-    '/onair/**': { prerender: true }
-  },
   modules: [
     //'@vueuse/nuxt',
     '@nuxt/image',
