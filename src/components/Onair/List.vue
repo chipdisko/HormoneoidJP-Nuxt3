@@ -33,7 +33,7 @@ const numPages = Math.ceil((data.value?.totalCount || 0) / numLimit);
 </script>»
 
 <template>
-  <div class="flex gap-8 flex-wrap px-4">
+  <div v-if="data" class="flex gap-8 flex-wrap px-4">
     <OnairCard v-for="article in data.contents" :key="'list_'+article.id" :article="article" class="z-10" :style="{ width: Math.floor(Math.random() * 140) + 200 + 'px' }" />
     <!--
     <NewsItem :categoryId="categoryId" v-for="content in data.contents" :key="content.id" :content="content" />
