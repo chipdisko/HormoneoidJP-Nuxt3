@@ -41,7 +41,7 @@ watch( [ isPlaying, playingId ], () => {
     <div class="relative z-10 p-2 pb-4 lg:p-3 lg:pb-8">
       <p class="text-sm font-tertiary font-medium uppercase tracking-widest text-pink-500">
         <span class="bg-black">
-          {{ article.date  }}
+          {{ article.airdate  }}
         </span>
       </p>
   

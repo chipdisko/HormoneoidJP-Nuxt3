@@ -19,7 +19,7 @@ export type Guest = {
 
 export type Onair = {
   title: string;
-  date: string; // ISO8601
+  airdate: string; // ISO8601
   jacket?: MicroCMSImage;
   feat?: (Guest & MicroCMSListContent);
   host?: ('KA4U' | 'Ascalypso')[];

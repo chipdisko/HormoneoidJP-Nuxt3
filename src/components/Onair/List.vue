@@ -21,6 +21,7 @@ const queries: MicroCMSQueries = {
   fields: "id,date,title,jacket,host,feat,description,soundcloud_embedcode,publishedAt",
   limit: numLimit,
   offset: (page - 1) * numLimit,
+  filters: `airdate[less_than]${new Date().toISOString()}`,
 };
 
 const { data } = await useMicroCMSGetList<OnairProps[]>({
@@ -28,14 +29,13 @@ const { data } = await useMicroCMSGetList<OnairProps[]>({
   queries: queries,
 });
 
+
 const numPages = Math.ceil((data.value?.totalCount || 0) / numLimit);
 </script>»
 
 <template>
-  <div v-if="!data">something happend. please reload;</div>
-  <div v-else-if="!data.totalCount" class="text-center">現在、新着情報はありません。</div>
-  <div v-else class="flex gap-8 flex-wrap px-4">
-    <OnairCard v-for="article in data.contents" :key="article.id" :article="article" class="z-10" :style="{ width: Math.floor(Math.random() * 140) + 200 + 'px' }" />
+  <div class="flex gap-8 flex-wrap px-4">
+    <OnairCard v-for="article in data.contents" :key="'list_'+article.id" :article="article" class="z-10" :style="{ width: Math.floor(Math.random() * 140) + 200 + 'px' }" />
     <!--
     <NewsItem :categoryId="categoryId" v-for="content in data.contents" :key="content.id" :content="content" />
     <OnairPagination v-if="pagination && data.totalCount > numLimit" :numPages="numPages" :current="page" />

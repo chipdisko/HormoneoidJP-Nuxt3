@@ -11,7 +11,7 @@ const { article } = defineProps<{
 }>();
 
 
-const articleDateInLondon = $getOnairTime(article.date) ?? '';
+const articleDateInLondon = $getOnairTime(article.airdate) ?? '';
 
 function nl2br(str) {
   return str.replace(/\n/g, '<br>');
@@ -21,15 +21,17 @@ function nl2br(str) {
 const { $extractSoundcloudIdFromEmbedcode } = useNuxtApp();
 const isActive = ref(false);
 const mySoundcloudId = ref(null);
-mySoundcloudId.value = $extractSoundcloudIdFromEmbedcode(article.soundcloud_embedcode);
-const soundcloudStore = useSoundcloud()
-const { isPlaying, playingId } = storeToRefs(soundcloudStore)
-effect(() => {
-  isActive.value = isPlaying.value && playingId.value === mySoundcloudId.value;
-})
-watch( [ isPlaying, playingId ], () => {
-  isActive.value = isPlaying.value && playingId.value === mySoundcloudId.value;
-})
+if(article.soundcloud_embedcode){
+  mySoundcloudId.value = $extractSoundcloudIdFromEmbedcode(article.soundcloud_embedcode);
+  const soundcloudStore = useSoundcloud()
+  const { isPlaying, playingId } = storeToRefs(soundcloudStore)
+  effect(() => {
+    isActive.value = isPlaying.value && playingId.value === mySoundcloudId.value;
+  })
+  watch( [ isPlaying, playingId ], () => {
+    isActive.value = isPlaying.value && playingId.value === mySoundcloudId.value;
+  })
+}
 
 </script>
 
@@ -69,6 +71,7 @@ watch( [ isPlaying, playingId ], () => {
         </div>
         <div>
           <OnairPlayButton
+            v-if="mySoundcloudId"
             :embedcode="article.soundcloud_embedcode"
             class="flex items-center gap-4 bg-transparent border rounded-full p-[.33em] pl-[.5em] pr-[.7em] md:text-3xl lg:text-4xl xl:text-5xl font-tertiary font-bold  "
             :class="{
