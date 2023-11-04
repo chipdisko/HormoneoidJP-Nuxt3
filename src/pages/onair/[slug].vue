@@ -8,13 +8,15 @@ const { data: article } = await useMicroCMSGetListDetail<OnairProps>({
   contentId: slug,
 });
 
+const seoTitle = `${article.value?.title ?? 'a radio archive'} ${article.value?.theme ? `THEME:${article.value.theme}` : ''} | a radio archive on Hormoneoid JP hosted on AAJA CH2`;
+
 useSeoMeta({
-  title: `${article.value?.title} | a dj mix archive on Hormoneoid JP hosted on AAJA CH2`,
+  title: seoTitle,
   description: article.value?.description?.replace(/\n/g, '') ?? article.value?.title,
-  ogTitle: `${article.value?.title} | a dj mix archive on Hormoneoid JP hosted on AAJA CH2`,
+  ogTitle: seoTitle,
   ogDescription: article.value?.description?.replace(/\n/g, '') ?? article.value?.title,
   ogImage: article.value?.jacket?.url ?? '',
-  twitterTitle: `${article.value?.title} | a dj mix archive on Hormoneoid JP hosted on AAJA CH2`,
+  twitterTitle: seoTitle,
   twitterDescription: article.value?.description?.replace(/\n/g, '') ?? article.value?.title,
   twitterImage: article.value?.jacket?.url ?? '',
   robots: 'follow, index'

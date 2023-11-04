@@ -1,4 +1,6 @@
 <script setup lang="ts">
+// about using <ClientOnly /> :: this button is always called from fetched item so Icons are client-only.
+
 import { storeToRefs } from 'pinia';
 import { useSoundcloud } from "~/store/soundcloud";
 const { $extractSoundcloudIdFromEmbedcode } = useNuxtApp();

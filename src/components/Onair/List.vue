@@ -20,7 +20,7 @@ const queries: MicroCMSQueries = {
   fields: "id,airdate,title,jacket,host,feat,description,soundcloud_embedcode",
   limit: numLimit,
   offset: (page - 1) * numLimit,
-  //filters: `airdate[less_than]${new Date().toISOString()}`,
+  filters: `airdate[less_than]${new Date().toISOString()}`,
 };
 
 const { data } = await useMicroCMSGetList<OnairProps>({

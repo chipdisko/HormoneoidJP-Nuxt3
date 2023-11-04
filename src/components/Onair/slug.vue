@@ -45,8 +45,8 @@ if(article.soundcloud_embedcode){
     lazy
     class="bg pointer-events-none fixed top-0 left-0 z-0 w-full h-full object-cover object-top "
   />
-  <div class="relative z-[1] flex flex-col gap-16 pt-24 min-h-[100dvh] box-border">
-    <div class="img_parent flex flex-col sm:flex-row gap-10 lg:gap-16 xl:gap-20 2xl:max-w-screen-2xl mx-4 md:mx-12 lg:mx-20 2xl:mx-auto">
+  <div class="relative z-[1] flex flex-col gap-16 lg:gap-20 pt-24 min-h-[100dvh] box-border">
+    <div class="img_parent flex flex-col sm:flex-row gap-4 lg:gap-16 xl:gap-20 2xl:max-w-screen-2xl mx-4 md:mx-12 lg:mx-20 2xl:mx-auto">
       <div class="img w-full sm:w-[260px] md:w-[400px] lg:w-[500px] self-start shrink-0 grow-0 frame relative flex flex-col rounded-lg bg-black transition-transform .2s ease-in-out ">
         <NuxtImg
           v-if="article.jacket" 
@@ -60,10 +60,17 @@ if(article.soundcloud_embedcode){
           class="rounded-lg w-full"
         />
       </div>
-      <div class="flex flex-col gap-12">
+      <div class="flex flex-col gap-8 md:gap-12">
         <div class="font-official uppercase text-6xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl">
-          <Logo class="line-text" /><br />
-          <h1>{{ article.title }}</h1>
+          <div class="line-text">
+            {{ article.channel ?? 'Hormoneoid JP' }}
+          </div>
+          <h1>
+            <span>{{ article.title }}</span>
+          </h1>
+          <div>
+            <span v-if="article.theme" class=""><span class="line-text">THEME:</span>{{ article.theme }}</span>
+          </div>
           <div>
             <span>{{ articleDateInLondon }}</span>
           </div>
@@ -72,19 +79,19 @@ if(article.soundcloud_embedcode){
           <OnairPlayButton
             v-if="article.soundcloud_embedcode"
             :embedcode="article.soundcloud_embedcode"
-            class="flex items-center gap-4 bg-transparent border rounded-full p-[.33em] pl-[.5em] pr-[.7em] md:text-3xl lg:text-4xl xl:text-5xl font-tertiary font-bold  "
+            class="flex items-center gap-4 bg-transparent border rounded-full p-[.33em] pl-[.5em] pr-[.7em] text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-tertiary font-bold  "
             :class="{
               'border-red-500 text-red-500 hover:bg-red-500 hover:text-white': isActive,
               'border-white/80 text-white  hover:text-black hover:border-black hover:bg-white': !isActive,
 
             }"
           >
-          <template v-if="isActive">
-            STOP
-          </template>
-          <template v-else>
-            PLAY
-          </template>  
+            <template v-if="isActive">
+              STOP
+            </template>
+            <template v-else>
+              PLAY
+            </template>  
             THE ONAIR
           </OnairPlayButton>
         </div>
@@ -96,31 +103,32 @@ if(article.soundcloud_embedcode){
 
       </div>
     </div>
-    <div v-if="article.tracklists || article.tracklist" class="w-fit mx-auto flex">
+    <div v-if="article.tracklists" class="w-auto mr-4 lg:w-fit max-w-full  lg:mx-auto flex">
       <div class="flex flex-col items-start gap-8">
-        <h3 class="sticky top-12 tracklist_title font-tertiary text-5xl lg:text-8xl font-bold text-transparent tracking-[.17em] lg:leading-[.7] translate-y-[6.6em] -rotate-90 origin-top-left w-[1em] h-[6.6em]">
+        <h2 class="sticky top-12 tracklist_title font-tertiary text-5xl lg:text-8xl font-bold text-transparent tracking-[.17em] lg:leading-[.7] translate-y-[6.6em] -rotate-90 origin-top-left w-[1em] h-[6.6em]">
           TRACKLIST
-        </h3>
+        </h2>
       </div>
-      <!-- <div
-        v-if="article.tracklists"
-        class=""
-      >
-        <span
-          v-for="(tracklist, index) in article.tracklists"
-          :key="tracklist"
-          v-html="nl2br(tracklist)"
-          class="bg-black"
-        />
-      </div> -->
       <div
-        v-if="article.tracklist"
-        class="max-w-[1000px] mx-auto font-secondary text-sm lg:text-2xl leading-snug backdrop-blur-lg bg-slate-950/40 lg:bg-black/0 lg:hover:bg-slate-950/70 transition-colors border-white/10 border text-stroke-1 text-stroke-black"
+        v-if="article.tracklists"
+        class="flex flex-col items-stretch gap-8 lg:gap-10 max-w-[1000px] mx-auto"
       >
-        <span
-          v-html="nl2br(article.tracklist)"
-          class=""
-        />
+        <div
+          v-for="(tracklist, index) in article.tracklists"
+          :key="'tracklist-'+index"
+          class="font-secondary  py-1 px-2 md:p-0 text-sm lg:text-xl leading-snug backdrop-blur-lg bg-slate-950/40 lg:bg-black/0 lg:hover:bg-slate-950/70 transition-colors border-white/10 border "
+        >
+          <h3 class="font-primary font-extrabold text-2xl lg:text-4xl mb-[.5em] text-stroke-1 text-stroke-black">
+            <span class="after:content-['part:'] after:font-tertiary after:text-base after:ml-[.8em]">
+              {{ tracklist.artist?.[0] === 'guest' ? article.feat ? article.feat.name : 'GUEST' : article.host ? article.host[0] : 'Ascalypso B2B KA4U' }}
+            </span>
+          </h3>
+          <div class="text-stroke-1 text-stroke-black">
+            <span
+              v-html="nl2br(tracklist.tracklist)"
+            />
+          </div>
+        </div>
       </div>
     </div>
     
