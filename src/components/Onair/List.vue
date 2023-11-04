@@ -1,4 +1,3 @@
-
 <script setup lang="ts">
 import type { MicroCMSQueries } from "microcms-js-sdk";
 import type { Onair as OnairProps } from "~/types/microcms";
@@ -18,7 +17,7 @@ const { page, pagination, limit } = withDefaults(defineProps<Props>(), {
 const numLimit: number = Number(limit);
 
 const queries: MicroCMSQueries = {
-  fields: "id,date,title,jacket,host,feat,description,soundcloud_embedcode,publishedAt",
+  fields: "id,airdate,title,jacket,host,feat,description,soundcloud_embedcode,publishedAt",
   limit: numLimit,
   offset: (page - 1) * numLimit,
   filters: `airdate[less_than]${new Date().toISOString()}`,
