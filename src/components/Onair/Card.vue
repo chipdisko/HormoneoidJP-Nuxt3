@@ -1,29 +1,30 @@
 <script setup lang="ts">
 // reference: https://www.hyperui.dev/components/marketing/cards
+import type { MicroCMSContentId, MicroCMSDate } from "microcms-js-sdk";
 import { storeToRefs } from 'pinia';
 import { useSoundcloud } from "~/store/soundcloud";
 import type { Onair as OnairProps } from "~/types/microcms";
 import NoJacket from "./no-jacket.jpg";
 
 type Props = {
-  article: OnairProps;
+  article: OnairProps & MicroCMSContentId & MicroCMSDate;
 };
 const { article } = defineProps<Props>();
 
-const { $extractSoundcloudIdFromEmbedcode } = useNuxtApp();
+const mySoundcloudId = ref<number | null>(null);
 const isActive = ref(false);
-const mySoundcloudId = ref(null);
-mySoundcloudId.value = $extractSoundcloudIdFromEmbedcode(article.soundcloud_embedcode);
-const soundcloudStore = useSoundcloud()
-const { isPlaying, playingId } = storeToRefs(soundcloudStore)
-effect(() => {
-  isActive.value = isPlaying.value && playingId.value === mySoundcloudId.value;
-})
-watch( [ isPlaying, playingId ], () => {
-  isActive.value = isPlaying.value && playingId.value === mySoundcloudId.value;
-})
-
-
+if(article.soundcloud_embedcode){
+  const { $extractSoundcloudIdFromEmbedcode } = useNuxtApp();
+  mySoundcloudId.value = $extractSoundcloudIdFromEmbedcode(article.soundcloud_embedcode) ?? null;
+  const soundcloudStore = useSoundcloud()
+  const { isPlaying, playingId } = storeToRefs(soundcloudStore)
+  effect(() => {
+    isActive.value = isPlaying.value && playingId.value === mySoundcloudId.value;
+  })
+  watch( [ isPlaying, playingId ], () => {
+    isActive.value = isPlaying.value && playingId.value === mySoundcloudId.value;
+  })
+}
 </script>
 
 <template>

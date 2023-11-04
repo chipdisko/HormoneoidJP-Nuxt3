@@ -13,9 +13,9 @@ export const useSoundcloud = defineStore(
       isPlaying.value = bool;
     }
     const playingId = ref<number | null>(null);
-    function setPlayingId(id: number) {
+    function setPlayingId(id: number | null) {
       playingId.value = id;
-      isPlaying.value = true;
+      isPlaying.value = !!id;
     }
     return { isOpen, setIsOpen, isPlaying, setIsPlaying, playingId, setPlayingId };
   },

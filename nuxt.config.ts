@@ -2,6 +2,7 @@
 export default defineNuxtConfig({
   routeRules: {
     '/': { prerender: true },
+    '/onair/**': { prerender: true },
   },
   modules: [
     //'@vueuse/nuxt',

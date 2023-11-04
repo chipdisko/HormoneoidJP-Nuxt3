@@ -3,7 +3,6 @@ import { storeToRefs } from 'pinia';
 import { useSoundcloud } from "~/store/soundcloud";
 
 import type { Onair as OnairProps } from "~/types/microcms";
-import sample from './sample.json';
 const { $getOnairTime } = useNuxtApp(); // ~/plugin/linkType.ts
 
 const { article } = defineProps<{
@@ -13,16 +12,16 @@ const { article } = defineProps<{
 
 const articleDateInLondon = $getOnairTime(article.airdate) ?? '';
 
-function nl2br(str) {
+function nl2br(str:string):string {
   return str.replace(/\n/g, '<br>');
 }
 
 // const readableArticle = article ? JSON.stringify(article, null, 2) : "";
 const { $extractSoundcloudIdFromEmbedcode } = useNuxtApp();
 const isActive = ref(false);
-const mySoundcloudId = ref(null);
+const mySoundcloudId = ref<number | null>(null);
 if(article.soundcloud_embedcode){
-  mySoundcloudId.value = $extractSoundcloudIdFromEmbedcode(article.soundcloud_embedcode);
+  mySoundcloudId.value = $extractSoundcloudIdFromEmbedcode(article.soundcloud_embedcode) ?? null;
   const soundcloudStore = useSoundcloud()
   const { isPlaying, playingId } = storeToRefs(soundcloudStore)
   effect(() => {
@@ -71,7 +70,7 @@ if(article.soundcloud_embedcode){
         </div>
         <div>
           <OnairPlayButton
-            v-if="mySoundcloudId"
+            v-if="article.soundcloud_embedcode"
             :embedcode="article.soundcloud_embedcode"
             class="flex items-center gap-4 bg-transparent border rounded-full p-[.33em] pl-[.5em] pr-[.7em] md:text-3xl lg:text-4xl xl:text-5xl font-tertiary font-bold  "
             :class="{

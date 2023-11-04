@@ -6,14 +6,15 @@ const { embedcode } = defineProps<{
   embedcode: string;
 }>()
 
-const mySoundcloudId = ref(null);
-mySoundcloudId.value = $extractSoundcloudIdFromEmbedcode(embedcode);
+const mySoundcloudId = ref<number | null>(null);
+mySoundcloudId.value = $extractSoundcloudIdFromEmbedcode(embedcode) ?? null;
 const soundcloudStore = useSoundcloud()
 const { setIsOpen, setIsPlaying, setPlayingId } = soundcloudStore;
 const { isPlaying, playingId } = storeToRefs(soundcloudStore);
 
 const isDisabled = ref(false);
 const handlePlay = ():void => {
+  if ( !mySoundcloudId ) return;
   console.log('handlePlay', mySoundcloudId.value);
   if ( playingId.value === mySoundcloudId.value ) {
     setPlayingId(null);

@@ -15,13 +15,13 @@ export type Guest = {
   biography?: string;
   links?: Link[];
   runs?: Run[];
-} & MicroCMSListContent;
+}
 
 export type Onair = {
   title: string;
   airdate: string; // ISO8601
   jacket?: MicroCMSImage;
-  feat?: (Guest & MicroCMSListContent);
+  feat?: (MicroCMSListContent & Guest);
   host?: ('KA4U' | 'Ascalypso')[];
   description?: string;
   tracklist?: string;
@@ -30,4 +30,4 @@ export type Onair = {
     tracklist: string;
   }
   soundcloud_embedcode?: string;
-} & MicroCMSListContent;
+}

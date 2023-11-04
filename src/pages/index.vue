@@ -1,12 +1,7 @@
 <script setup lang="ts">
-const config = useAppConfig();
-useSeoMeta({
-  ogTitle: config.siteMetadata.title,
-  ogDescription: config.siteMetadata.description ?? config.siteMetadata.title,
-  twitterTitle:  config.siteMetadata.title,
-  twitterDescription: config.siteMetadata.description ?? config.siteMetadata.title,
-  robots: 'follow, index'
-});
+const appConfig = useAppConfig();
+console.log(appConfig.siteMetadata);
+
 </script>
 <template>
   <div class="lg:flex">

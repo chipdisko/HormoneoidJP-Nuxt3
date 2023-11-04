@@ -23,21 +23,19 @@ const queries: MicroCMSQueries = {
   filters: `airdate[less_than]${new Date().toISOString()}`,
 };
 
-const { data } = await useMicroCMSGetList<OnairProps[]>({
+const { data } = useMicroCMSGetList<OnairProps>({
   endpoint: "onairs",
   queries: queries,
 });
 
-
-const numPages = Math.ceil((data.value?.totalCount || 0) / numLimit);
+//const numPages = Math.ceil((data.value?.totalCount || 0) / numLimit);
+//:style="{ width: Math.floor(Math.random() * 140) + 200 + 'px' }"
 </script>»
 
 <template>
-  <div v-if="data" class="flex gap-8 flex-wrap px-4">
-    <OnairCard v-for="article in data.contents" :key="'list_'+article.id" :article="article" class="z-10" :style="{ width: Math.floor(Math.random() * 140) + 200 + 'px' }" />
-    <!--
-    <NewsItem :categoryId="categoryId" v-for="content in data.contents" :key="content.id" :content="content" />
-    <OnairPagination v-if="pagination && data.totalCount > numLimit" :numPages="numPages" :current="page" />
-    -->
+  <div v-if="data">
+    <div class="flex gap-8 flex-wrap px-4">
+      <OnairCard v-for="article in data.contents" :key="'list_'+article.id" :article="article" class="z-10" />
+    </div>
   </div>
 </template>

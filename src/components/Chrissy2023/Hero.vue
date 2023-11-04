@@ -70,7 +70,7 @@ const data = {
         <h3 class="text-white bg-amber-600 w-fit">lineup</h3>
         <ul class="flex flex-wrap gap-x-4 gap-y-1">
           <li
-            v-for="artist in data.guests" :key="artist"
+            v-for="artist in data.guests" :key="artist.name"
             class="text-lg md:text-3xl lg:text-2xl xl:text-3xl before:content-['/'] before:text-white/30"
           >
             <span>
@@ -80,7 +80,7 @@ const data = {
               {{ artist.act }}
             </span>
           </li>          <li
-            v-for="artist in data.locals" :key="artist"
+            v-for="artist in data.locals" :key="artist.name"
             class="text-lg md:text-3xl lg:text-2xl xl:text-3xl before:content-['/'] before:text-white/30"
           >
             <span>
@@ -109,7 +109,7 @@ const data = {
             <span class="meta-key">CHARGE</span>
             <span class="devide"></span>
             <span class="meta-val">
-              <span v-for="charge in data.charges" :key="charge">
+              <span v-for="charge in data.charges" :key="charge.type">
                 {{ charge.type }} {{ charge.money }}<small class="text-[.8em]">{{ charge.unit }}</small>
                 </span>
             </span>
