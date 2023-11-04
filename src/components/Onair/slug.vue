@@ -9,7 +9,6 @@ const { article } = defineProps<{
   article: OnairProps;
 }>();
 
-
 const articleDateInLondon = $getOnairTime(article.airdate) ?? '';
 
 function nl2br(str:string):string {
