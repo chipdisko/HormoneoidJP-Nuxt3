@@ -33,7 +33,7 @@ export default defineNuxtConfig({
   },
   app: {
     head: {
-      title: 'Hormoneoid JP -- from Osaka to London ans the world.',
+      title: 'Hormoneoid JP -- from Osaka to London and the world.',
       meta: [{ name: 'description', content: 'You are listening to Hormoneoid JP. Enjoy!!' }],
       link: [
         { rel: 'icon', href: '/favicon.ico' },
