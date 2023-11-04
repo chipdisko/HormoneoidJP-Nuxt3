@@ -48,9 +48,11 @@ watch( [ isPlaying, playingId ], () => {
       'isDisabled': isDisabled
     }"
   >
-    <Icon v-if="isDisabled" name="svg-spinners:ring-resize" />
-    <Icon v-else-if="isActive" name="svg-spinners:pulse-rings-2" />
-    <Icon v-else name="mdi:play" />
+    <ClientOnly>
+      <Icon v-if="isDisabled" name="svg-spinners:ring-resize" />
+      <Icon v-else-if="isActive" name="svg-spinners:pulse-rings-2" />
+      <Icon v-else name="mdi:play" />
+    </ClientOnly>
     <slot />
   </button>
 </template>

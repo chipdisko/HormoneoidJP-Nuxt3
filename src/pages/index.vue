@@ -1,7 +1,9 @@
 <script setup lang="ts">
-const appConfig = useAppConfig();
-console.log(appConfig.siteMetadata);
-
+useSeoMeta({
+  ogTitle: 'Hormoneoid JP | a dj mix archive on AAJA CH2',
+  ogDescription: 'You are listening to Hormoneoid JP. Enjoy!',
+  robots: 'follow, index'
+});
 </script>
 <template>
   <div class="lg:flex">

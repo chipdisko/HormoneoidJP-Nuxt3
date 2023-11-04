@@ -20,22 +20,22 @@ const queries: MicroCMSQueries = {
   fields: "id,airdate,title,jacket,host,feat,description,soundcloud_embedcode",
   limit: numLimit,
   offset: (page - 1) * numLimit,
-  filters: `airdate[less_than]${new Date().toISOString()}`,
+  //filters: `airdate[less_than]${new Date().toISOString()}`,
 };
 
-const { data } = useMicroCMSGetList<OnairProps>({
+const { data } = await useMicroCMSGetList<OnairProps>({
   endpoint: "onairs",
   queries: queries,
 });
 
 //const numPages = Math.ceil((data.value?.totalCount || 0) / numLimit);
-//:style="{ width: Math.floor(Math.random() * 140) + 200 + 'px' }"
+//
 </script>»
 
 <template>
   <div v-if="data">
     <div class="flex gap-8 flex-wrap px-4">
-      <OnairCard v-for="article in data.contents" :key="'list_'+article.id" :article="article" class="z-10" />
+      <OnairCard v-for="article in data.contents" :key="'list_'+article.id" :article="article" class="z-10" :style="{ width: Math.floor(Math.random() * 140) + 200 + 'px' }" />
     </div>
   </div>
 </template>

@@ -41,29 +41,30 @@ if(article.soundcloud_embedcode){
     />
     <div class="relative z-10 p-2 pb-4 lg:p-3 lg:pb-8">
       <p class="text-sm font-tertiary font-medium uppercase tracking-widest text-pink-500">
-        <span class="bg-black">
-          {{ article.airdate  }}
-        </span>
+        <span class="bg-black">{{ article.airdate  }}</span>
       </p>
   
       <h3 class="title text-2xl text-stroke-1 text-stroke-black font-primary font-bold tracking-wider sm:text-3xl">
         {{ article.title }}
       </h3>
-
-      <OnairPlayButton v-if="article.soundcloud_embedcode" :embedcode="article.soundcloud_embedcode"
-        class="play_button mt-6 border rounded-full flex items-center justify-center h-16 w-16 text-5xl opacity-80 hover:opacity-90 drop-shadow-md"
-        :class="{
-          'border-red-500 text-white bg-red-400/70 hover:bg-red-500 hover:text-white': isActive,
-          'border-white text-white hover:bg-red-500/80': !isActive,
-        }"
-      />
+      <ClientOnly>
+        <OnairPlayButton v-if="article.soundcloud_embedcode" :embedcode="article.soundcloud_embedcode"
+          class="play_button mt-6 border rounded-full flex items-center justify-center h-16 w-16 text-5xl opacity-80 hover:opacity-90 drop-shadow-md"
+          :class="{
+            'border-red-500 text-white bg-red-400/70 hover:bg-red-500 hover:text-white': isActive,
+            'border-white text-white hover:bg-red-500/80': !isActive,
+          }"
+        />
+      </ClientOnly>
 
       <NuxtLink
         :to="`/onair/${article.id}`" 
         class="btn mt-6 p-2 font-tertiary text-sm font-medium border-black/70 bg-black/30 group-hover:bg-black/70 text-lime-500 hover:text-lime-300 uppercase tracking-widest "
       >
         Read More
-        <Icon name="mdi:book-open-page-variant-outline" />
+        <ClientOnly>
+          <Icon name="mdi:book-open-page-variant-outline" />
+        </ClientOnly>
       </NuxtLink>
     </div>
     <div class="w-full mt-auto">
