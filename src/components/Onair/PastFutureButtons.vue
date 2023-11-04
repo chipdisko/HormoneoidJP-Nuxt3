@@ -12,8 +12,8 @@ const { data: pastOneArticles } = await useMicroCMSGetList<OnairProps>({
   queries: {
     limit: 1,
     fields,
-    orders: "-date",
-    filters: `date[less_than]${article.date}`,
+    orders: "-airdate",
+    filters: `airdate[less_than]${article.airdate}`,
   },
 });
 const pastArticle = pastOneArticles.value?.contents[0];
@@ -23,8 +23,8 @@ const { data: futureOneArticles } = await useMicroCMSGetList<OnairProps>({
   queries: {
     limit: 1,
     fields,
-    orders: "date",
-    filters: `date[greater_than]${article.date}`,
+    orders: "airdate",
+    filters: `airdate[greater_than]${article.airdate}`,
   },
 });
 const futureArticle = futureOneArticles.value?.contents[0];
