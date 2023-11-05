@@ -85,16 +85,17 @@ onMounted(()=>{
             <span>{{ articleDateInLondon }}</span>
           </div>
         </div>
-        <div>
-          <OnairPlayButton
-            v-if="article.soundcloud_embedcode"
-            :embedcode="article.soundcloud_embedcode"
-            class="flex items-center gap-4 bg-transparent border rounded-full p-[.33em] pl-[.5em] pr-[.7em] text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-tertiary font-bold  "
-            :class="{
-              'border-red-500 text-red-500 hover:bg-red-500 hover:text-white': isActive,
-              'border-white/80 text-white  hover:text-black hover:border-black hover:bg-white': !isActive,
+        <ClientOnly>
+          <div>
+            <OnairPlayButton
+              v-if="article.soundcloud_embedcode"
+              :embedcode="article.soundcloud_embedcode"
+              class="flex items-center gap-4 bg-transparent border rounded-full p-[.33em] pl-[.5em] pr-[.7em] text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-tertiary font-bold  "
+              :class="{
+                'border-red-500 text-red-500 hover:bg-red-500 hover:text-white': isActive,
+                'border-white/80 text-white  hover:text-black hover:border-black hover:bg-white': !isActive,
 
-              }"
+                }"
             >
               <template v-if="isActive">
                 STOP
