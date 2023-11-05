@@ -74,7 +74,7 @@ if(article.soundcloud_embedcode){
             <span>{{ articleDateInLondon }}</span>
           </div>
         </div>
-        <div>
+        <div v-if="article.soundcloud_embedcode">
           <OnairPlayButton
             v-if="article.soundcloud_embedcode"
             :embedcode="article.soundcloud_embedcode"
