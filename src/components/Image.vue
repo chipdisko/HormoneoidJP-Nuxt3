@@ -1,14 +1,17 @@
 <template>
-  <img v-if="newSrc" :src="newSrc" :width="width" :height="height" />
-  <span
-    v-else
-    class="no-image"
-  >
-    <span>
-      <Icon name="carbon:no-image" size="20" />
-      No Image  
+  <template v-if="newSrc">
+    <img :src="newSrc" :width="width" :height="height" />
+  </template>
+  <template v-else>
+    <span class="no-image">
+      <span>
+        <ClientOnly>
+          <Icon name="carbon:no-image" size="20" />
+        </ClientOnly>
+        <span>No Image</span>
+      </span>
     </span>
-  </span>
+  </template>
 </template>
 <script setup lang="ts">
 type Props = {

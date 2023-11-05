@@ -14,22 +14,31 @@ const articleDateInLondon = $getOnairTime(article.airdate) ?? '';
 function nl2br(str:string):string {
   return str.replace(/\n/g, '<br>');
 }
+const description = article.description ? nl2br(article.description) : '';
+const tracklists = article.tracklists ? article.tracklists.map((tracklist) => {
+  return {
+    ...tracklist,
+    tracklist: nl2br(tracklist.tracklist)
+  }
+}) : [];
 
 // const readableArticle = article ? JSON.stringify(article, null, 2) : "";
 const { $extractSoundcloudIdFromEmbedcode } = useNuxtApp();
 const isActive = ref(false);
 const mySoundcloudId = ref<number | null>(null);
-if(article.soundcloud_embedcode){
-  mySoundcloudId.value = $extractSoundcloudIdFromEmbedcode(article.soundcloud_embedcode) ?? null;
-  const soundcloudStore = useSoundcloud()
-  const { isPlaying, playingId } = storeToRefs(soundcloudStore)
-  effect(() => {
-    isActive.value = isPlaying.value && playingId.value === mySoundcloudId.value;
-  })
-  watch( [ isPlaying, playingId ], () => {
-    isActive.value = isPlaying.value && playingId.value === mySoundcloudId.value;
-  })
-}
+onMounted(()=>{
+  if(article.soundcloud_embedcode){
+    mySoundcloudId.value = $extractSoundcloudIdFromEmbedcode(article.soundcloud_embedcode) ?? null;
+    const soundcloudStore = useSoundcloud()
+    const { isPlaying, playingId } = storeToRefs(soundcloudStore)
+    effect(() => {
+      isActive.value = isPlaying.value && playingId.value === mySoundcloudId.value;
+    })
+    watch( [ isPlaying, playingId ], () => {
+      isActive.value = isPlaying.value && playingId.value === mySoundcloudId.value;
+    })
+  }
+})
 
 </script>
 
@@ -45,19 +54,19 @@ if(article.soundcloud_embedcode){
     class="bg pointer-events-none fixed top-0 left-0 z-0 w-full h-full object-cover object-top "
   />
   <div class="relative z-[1] flex flex-col gap-16 lg:gap-20 pt-24 min-h-[100dvh] box-border">
-    <div class="img_parent flex flex-col sm:flex-row gap-4 lg:gap-16 xl:gap-20 2xl:max-w-screen-2xl mx-4 md:mx-12 lg:mx-20 2xl:mx-auto">
+    <div class="img_parent flex flex-col sm:flex-row gap-4 ms:gap-6 md:gap-12 lg:gap-16 xl:gap-20 2xl:max-w-screen-2xl mx-4 md:mx-12 lg:mx-20 2xl:mx-auto">
       <div class="img w-full sm:w-[260px] md:w-[400px] lg:w-[500px] self-start shrink-0 grow-0 frame relative flex flex-col rounded-lg bg-black transition-transform .2s ease-in-out ">
-        <NuxtImg
-          v-if="article.jacket" 
-          :src="article.jacket.url"
-          :alt="article.title"
-          :width="article.jacket.width"
-          :height="article.jacket.height"
-          lazy
-          cropPosition="top"
-          fit="crop"
-          class="rounded-lg w-full"
-        />
+        <template v-if="article.jacket" >
+          <NuxtImg
+            :src="article.jacket.url"
+            :alt="article.title"
+            :width="article.jacket.width"
+            :height="article.jacket.height"
+            cropPosition="top"
+            fit="crop"
+            class="rounded-lg w-full"
+          />
+        </template>
       </div>
       <div class="flex flex-col gap-8 md:gap-12">
         <div class="font-official uppercase text-6xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl">
@@ -67,9 +76,11 @@ if(article.soundcloud_embedcode){
           <h1>
             <span>{{ article.title }}</span>
           </h1>
-          <div>
-            <span v-if="article.theme" class=""><span class="line-text">THEME:</span>{{ article.theme }}</span>
-          </div>
+          <template v-if="article.theme">
+            <div>
+              <span class=""><span class="line-text">THEME:</span>{{ article.theme }}</span>
+            </div>
+          </template>
           <div>
             <span>{{ articleDateInLondon }}</span>
           </div>
@@ -83,26 +94,28 @@ if(article.soundcloud_embedcode){
               'border-red-500 text-red-500 hover:bg-red-500 hover:text-white': isActive,
               'border-white/80 text-white  hover:text-black hover:border-black hover:bg-white': !isActive,
 
-            }"
-          >
-            <template v-if="isActive">
-              STOP
-            </template>
-            <template v-else>
-              PLAY
-            </template>  
-            THE ONAIR
-          </OnairPlayButton>
-        </div>
-        <div v-if="article.description" class="font-secondary backdrop-blur-md border-white/10 border bg-black/10">
-          <span
-            v-html="nl2br(article.description)"
-          />
+              }"
+            >
+              <template v-if="isActive">
+                STOP
+              </template>
+              <template v-else>
+                PLAY
+              </template>  
+              THE ONAIR
+            </OnairPlayButton>
+          </div>
+        </ClientOnly>
+        <div
+          v-if="article.description"
+          class="font-secondary backdrop-blur-md border-white/10 border bg-black/10"
+        >
+          <span v-html="description"/>
         </div>
 
       </div>
     </div>
-    <div v-if="article.tracklists" class="w-auto mr-4 lg:w-fit max-w-full  lg:mx-auto flex">
+    <div v-if="tracklists" class="w-auto mr-4 lg:w-fit max-w-full  lg:mx-auto flex">
       <div class="flex flex-col items-start gap-8">
         <h2 class="sticky top-12 tracklist_title font-tertiary text-5xl lg:text-8xl font-bold text-transparent tracking-[.17em] lg:leading-[.7] translate-y-[6.6em] -rotate-90 origin-top-left w-[1em] h-[6.6em]">
           TRACKLIST
@@ -113,7 +126,7 @@ if(article.soundcloud_embedcode){
         class="flex flex-col items-stretch gap-8 lg:gap-10 max-w-[1000px] mx-auto"
       >
         <div
-          v-for="(tracklist, index) in article.tracklists"
+          v-for="(tracklist, index) in tracklists"
           :key="'tracklist-'+index"
           class="font-secondary  py-1 px-2 md:p-0 text-sm lg:text-xl leading-snug backdrop-blur-lg bg-slate-950/40 lg:bg-black/0 lg:hover:bg-slate-950/70 transition-colors border-white/10 border "
         >
@@ -124,7 +137,7 @@ if(article.soundcloud_embedcode){
           </h3>
           <div class="text-stroke-1 text-stroke-black">
             <span
-              v-html="nl2br(tracklist.tracklist)"
+              v-html="tracklist.tracklist"
             />
           </div>
         </div>

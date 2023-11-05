@@ -28,18 +28,19 @@ const { data } = await useMicroCMSGetList<OnairProps>({
   queries: queries,
 });
 
+const contents = useState('contents', () => data.value?.contents ?? [])
+
 const widths = ref<number[]>([]);
 for (let i = 0; i < Number(limit); i++) {
   widths.value.push(Math.floor(Math.random() * 140) + 200);
 }
+
 //const numPages = Math.ceil((data.value?.totalCount || 0) / numLimit);
 //
 </script>
 
 <template>
-  <div v-if="data">
-    <div class="flex gap-8 flex-wrap px-4">
-      <OnairCard v-for="article, index in data.contents" :key="'list_'+article.id" :article="article" class="z-10" :style="{ width: widths[index] + 'px' }" />
-    </div>
+  <div class="flex gap-8 flex-wrap px-4">
+    <OnairCard v-for="article, index in contents" :key="'list_'+article.id"  :article="article" class="z-10" :style="{ width: widths[index] + 'px' }" />
   </div>
 </template>

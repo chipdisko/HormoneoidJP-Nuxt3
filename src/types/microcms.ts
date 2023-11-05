@@ -1,4 +1,4 @@
-import type { MicroCMSListContent, MicroCMSImage } from "microcms-js-sdk";
+import type { MicroCMSListContent, MicroCMSImage, MicroCMSContentId, MicroCMSDate } from "microcms-js-sdk";
 
 type Run = {
   title: string;
@@ -33,4 +33,4 @@ export type Onair = {
   tracklists?: Tracklist[];
   soundcloud_embedcode?: string;
   channel?:string;
-}
+} & MicroCMSContentId & MicroCMSDate
