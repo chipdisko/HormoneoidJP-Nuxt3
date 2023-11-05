@@ -30,7 +30,7 @@ if(article.soundcloud_embedcode){
 <template>
   <div class="wrapper group relative flex flex-col rounded-lg bg-black w-fit hover:scale-105 transition-transform .2s ease-in-out">
     <Image
-      alt="Developer"
+      :alt="article.title"
       :src="article.jacket?.url"
       :width="article.jacket?.width"
       :height="article.jacket?.height"
@@ -47,13 +47,18 @@ if(article.soundcloud_embedcode){
       <h3 class="title text-2xl text-stroke-1 text-stroke-black font-primary font-bold tracking-wider sm:text-3xl">
         {{ article.title }}
       </h3>
-      <OnairPlayButton v-if="article.soundcloud_embedcode" :embedcode="article.soundcloud_embedcode"
-        class="play_button mt-6 border rounded-full flex items-center justify-center h-16 w-16 text-5xl opacity-80 hover:opacity-90 drop-shadow-md"
-        :class="{
-          'border-red-500 text-white bg-red-400/70 hover:bg-red-500 hover:text-white': isActive,
-          'border-white text-white hover:bg-red-500/80': !isActive,
-        }"
-      />
+      <ClientOnly>
+        <div v-if="article.soundcloud_embedcode">
+          <OnairPlayButton
+            embedcode="article.soundcloud_embedcode"
+            class="play_button mt-6 border rounded-full flex items-center justify-center h-16 w-16 text-5xl opacity-80 hover:opacity-90 drop-shadow-md"
+            :class="{
+              'border-red-500 text-white bg-red-400/70 hover:bg-red-500 hover:text-white': isActive,
+              'border-white text-white hover:bg-red-500/80': !isActive,
+            }"
+          />
+        </div>
+      </ClientOnly>
 
       <NuxtLink
         :to="`/onair/${article.id}`" 

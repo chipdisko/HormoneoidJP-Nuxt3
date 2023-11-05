@@ -16,7 +16,7 @@ const { data: pastOneArticles } = await useMicroCMSGetList<OnairProps>({
     filters: `airdate[less_than]${article.airdate}`,
   },
 });
-const pastArticle = pastOneArticles.value?.contents[0];
+const pastArticle = pastOneArticles.value?.contents[0] ?? null;
 
 const { data: futureOneArticles } = await useMicroCMSGetList<OnairProps>({
   endpoint: "onairs",
@@ -27,24 +27,28 @@ const { data: futureOneArticles } = await useMicroCMSGetList<OnairProps>({
     filters: `airdate[greater_than]${article.airdate}`,
   },
 });
-const futureArticle = futureOneArticles.value?.contents[0];
+const futureArticle = futureOneArticles.value?.contents[0] ?? null;
 </script>
 <template>
   <div class="flex mt-8 w-full font-tertiary ">
-    <NuxtLink v-if="pastArticle" :to="`/onair/${pastArticle.id}`" class="past button mr-auto">
+    <NuxtLink v-show="pastArticle" :to="`/onair/${pastArticle?.id}`" class="past button mr-auto">
       <div class="icon">
-        <Icon name="ph:caret-left-light" />
+        <ClientOnly>
+          <Icon name="ph:caret-left-light" />
+        </ClientOnly>
       </div>
       <div class="title">
-        {{ pastArticle.title }}
+        {{ pastArticle?.title }}
       </div>
     </NuxtLink>
-    <NuxtLink v-if="futureArticle" :to="`/onair/${futureArticle.id}`" class="future button ml-auto">
+    <NuxtLink v-show="futureArticle" :to="`/onair/${futureArticle?.id}`" class="future button ml-auto">
       <div class="icon">
-        <Icon name="ph:caret-right-light" />
+        <ClientOnly>
+          <Icon name="ph:caret-right-light" />
+        </ClientOnly>
       </div>
       <div class="title">
-        {{ futureArticle.title }}
+        {{ futureArticle?.title }}
       </div>
     </NuxtLink>
   </div>

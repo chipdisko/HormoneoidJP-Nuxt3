@@ -34,7 +34,7 @@ if(article.soundcloud_embedcode){
 </script>
 
 <template>
-<section v-if="article"
+<section
   class="section"
 >
   <NuxtImg
@@ -67,39 +67,41 @@ if(article.soundcloud_embedcode){
           <h1>
             <span>{{ article.title }}</span>
           </h1>
-          <div>
-            <span v-if="article.theme" class=""><span class="line-text">THEME:</span>{{ article.theme }}</span>
+          <div v-if="article.theme">
+            <span class=""><span class="line-text">THEME:</span>{{ article.theme }}</span>
           </div>
           <div>
             <span>{{ articleDateInLondon }}</span>
           </div>
         </div>
-        <div v-if="article.soundcloud_embedcode">
-          <OnairPlayButton
-            v-if="article.soundcloud_embedcode"
-            :embedcode="article.soundcloud_embedcode"
-            class="flex items-center gap-4 bg-transparent border rounded-full p-[.33em] pl-[.5em] pr-[.7em] text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-tertiary font-bold  "
-            :class="{
-              'border-red-500 text-red-500 hover:bg-red-500 hover:text-white': isActive,
-              'border-white/80 text-white  hover:text-black hover:border-black hover:bg-white': !isActive,
+        <ClientOnly>
+          <div v-if="article.soundcloud_embedcode">
+            <OnairPlayButton
+              v-if="article.soundcloud_embedcode"
+              :embedcode="article.soundcloud_embedcode"
+              class="flex items-center gap-4 bg-transparent border rounded-full p-[.33em] pl-[.5em] pr-[.7em] text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-tertiary font-bold  "
+              :class="{
+                'border-red-500 text-red-500 hover:bg-red-500 hover:text-white': isActive,
+                'border-white/80 text-white  hover:text-black hover:border-black hover:bg-white': !isActive,
 
-            }"
-          >
-            <template v-if="isActive">
-              STOP
-            </template>
-            <template v-else>
-              PLAY
-            </template>  
-            THE ONAIR
-          </OnairPlayButton>
+              }"
+            >
+              <template v-if="isActive">
+                STOP
+              </template>
+              <template v-else>
+                PLAY
+              </template>  
+              THE ONAIR
+            </OnairPlayButton>
+          </div>
+        </ClientOnly>
+        <div
+          v-if="article.description"
+          class="font-secondary backdrop-blur-md border-white/10 border bg-black/10"
+        >
+          <span v-html="nl2br(article.description)"/>
         </div>
-        <div v-if="article.description" class="font-secondary backdrop-blur-md border-white/10 border bg-black/10">
-          <span
-            v-html="nl2br(article.description)"
-          />
-        </div>
-
       </div>
     </div>
     <div v-if="article.tracklists" class="w-auto mr-4 lg:w-fit max-w-full  lg:mx-auto flex">
@@ -109,7 +111,6 @@ if(article.soundcloud_embedcode){
         </h2>
       </div>
       <div
-        v-if="article.tracklists"
         class="flex flex-col items-stretch gap-8 lg:gap-10 max-w-[1000px] mx-auto"
       >
         <div
@@ -134,7 +135,9 @@ if(article.soundcloud_embedcode){
     <OnairPastFutureButtons :article="article" class="mt-auto" />
 
     <NuxtLink to="/" class="w-[80%] max-w-[400px] mx-auto mb-48 lg:mb-28 border-white/80 border h-[2.6em] flex items-center justify-center gap-[.5em] text-white text-xl md:text-2xl hover:text-lime-500 hover:border-lime-500 hover:bg-slate-950/30 active:bg-black active:duration-75 transition-colors">
-      <Icon name="ph:caret-left-fill" />
+      <ClientOnly>
+        <Icon name="ph:caret-left-fill" />
+      </ClientOnly>
       Home
     </NuxtLink>
   </div>

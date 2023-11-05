@@ -4,7 +4,7 @@
     <main id="main">
       <slot />
     </main>
-    <SoundcloudPlayer />
+    <LazySoundcloudPlayer />
   </div>
 </template>
 <style lang="sass" scoped>
