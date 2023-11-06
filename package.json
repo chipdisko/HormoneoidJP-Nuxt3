@@ -29,7 +29,6 @@
     "daisyui": "^3.9.3",
     "dayjs": "^1.11.10",
     "microcms-js-sdk": "^2.7.0",
-    "nuxt-microcms-module": "^3.0.2",
     "sass": "^1.65.1"
   }
 }
