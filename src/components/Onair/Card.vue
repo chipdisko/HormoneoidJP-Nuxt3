@@ -1,30 +1,31 @@
 <script setup lang="ts">
 // reference: https://www.hyperui.dev/components/marketing/cards
-import type { MicroCMSContentId, MicroCMSDate } from "microcms-js-sdk";
+import type { Onair as OnairProps } from "~/types/microcms";
 import { storeToRefs } from 'pinia';
 import { useSoundcloud } from "~/store/soundcloud";
-import type { Onair as OnairProps } from "~/types/microcms";
-import NoJacket from "./no-jacket.jpg";
 
 type Props = {
-  article: OnairProps & MicroCMSContentId & MicroCMSDate;
+  article: OnairProps;
 };
 const { article } = defineProps<Props>();
-
+const description = article.description ? article.description.replace(/\n/g, '').substring(0, 140) + '...' : '';
 const mySoundcloudId = ref<number | null>(null);
 const isActive = ref(false);
-if(article.soundcloud_embedcode){
-  const { $extractSoundcloudIdFromEmbedcode } = useNuxtApp();
-  mySoundcloudId.value = $extractSoundcloudIdFromEmbedcode(article.soundcloud_embedcode) ?? null;
-  const soundcloudStore = useSoundcloud()
-  const { isPlaying, playingId } = storeToRefs(soundcloudStore)
-  effect(() => {
-    isActive.value = isPlaying.value && playingId.value === mySoundcloudId.value;
-  })
-  watch( [ isPlaying, playingId ], () => {
-    isActive.value = isPlaying.value && playingId.value === mySoundcloudId.value;
-  })
-}
+
+onMounted(() => {
+  if(article.soundcloud_embedcode){
+    const { $extractSoundcloudIdFromEmbedcode } = useNuxtApp();
+    mySoundcloudId.value = $extractSoundcloudIdFromEmbedcode(article.soundcloud_embedcode) ?? null;
+    const soundcloudStore = useSoundcloud()
+    const { isPlaying, playingId } = storeToRefs(soundcloudStore)
+    effect(() => {
+      isActive.value = isPlaying.value && playingId.value === mySoundcloudId.value;
+    })
+    watch( [ isPlaying, playingId ], () => {
+      isActive.value = isPlaying.value && playingId.value === mySoundcloudId.value;
+    })
+  }
+})
 </script>
 
 <template>
@@ -34,7 +35,6 @@ if(article.soundcloud_embedcode){
       :src="article.jacket?.url"
       :width="article.jacket?.width"
       :height="article.jacket?.height"
-      :noImgSrc="NoJacket"
       cropPosition="top"
       fit="crop"
       class="absolute inset-0 h-full w-full rounded-lg object-cover opacity-75 transition-opacity group-hover:opacity-40"
@@ -48,16 +48,16 @@ if(article.soundcloud_embedcode){
         {{ article.title }}
       </h3>
       <ClientOnly>
-        <div v-if="article.soundcloud_embedcode">
+        <template v-if="article.soundcloud_embedcode">
           <OnairPlayButton
-            embedcode="article.soundcloud_embedcode"
+            :embedcode="article.soundcloud_embedcode"
             class="play_button mt-6 border rounded-full flex items-center justify-center h-16 w-16 text-5xl opacity-80 hover:opacity-90 drop-shadow-md"
             :class="{
               'border-red-500 text-white bg-red-400/70 hover:bg-red-500 hover:text-white': isActive,
               'border-white text-white hover:bg-red-500/80': !isActive,
             }"
           />
-        </div>
+        </template>
       </ClientOnly>
 
       <NuxtLink
@@ -74,9 +74,11 @@ if(article.soundcloud_embedcode){
       <div
         class="translate-y-8 transform opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100"
       >
-        <p v-if="article.description" class=" text-sm font-secondary p-2 text-white leading-tight">
-          <span class="">{{ article.description.substring(0, 140) + '...' }}</span>
-        </p>
+        <template v-if="description">
+          <p class=" text-sm font-secondary p-2 text-white leading-tight">
+            <span class="">{{ description }}</span>
+          </p>
+        </template>
       </div>
     </div>
   </div>

@@ -1,4 +1,3 @@
-<!-- src/components/Pagination.vue -->
 <script setup lang="ts">
 type Props = {
   numPages: number;
