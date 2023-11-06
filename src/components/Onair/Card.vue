@@ -48,9 +48,9 @@ onMounted(() => {
         {{ article.title }}
       </h3>
       <ClientOnly>
-        <template v-if="mySoundcloudId">
+        <template v-if="article.soundcloud_embedcode">
           <OnairPlayButton
-            embedcode="article.soundcloud_embedcode"
+            :embedcode="article.soundcloud_embedcode"
             class="play_button mt-6 border rounded-full flex items-center justify-center h-16 w-16 text-5xl opacity-80 hover:opacity-90 drop-shadow-md"
             :class="{
               'border-red-500 text-white bg-red-400/70 hover:bg-red-500 hover:text-white': isActive,

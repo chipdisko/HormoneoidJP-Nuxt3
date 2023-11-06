@@ -1,8 +1,13 @@
 <script setup lang="ts">
+const TITLE = 'Hormoneoid JP | a dj mix archive on AAJA CH2'; 
+const DESCRIPTION = 'You are listening to Hormoneoid JP. Enjoy';
+
 useSeoMeta({
-  ogTitle: 'Hormoneoid JP | a dj mix archive on AAJA CH2',
-  ogDescription: 'You are listening to Hormoneoid JP. Enjoy!',
-  robots: 'follow, index'
+  title: TITLE,
+  description: DESCRIPTION,
+  ogTitle: TITLE,
+  ogDescription: DESCRIPTION,
+  robots: 'follow, index',
 });
 </script>
 <template>

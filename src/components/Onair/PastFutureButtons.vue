@@ -1,52 +1,65 @@
 <script setup lang="ts">
+import type { MicroCMSQueries, MicroCMSListResponse } from "microcms-js-sdk";
 import type { Onair as OnairProps } from "~/types/microcms";
 
 const { article } = defineProps<{
   article: OnairProps;
 }>();
 
-const fields = "id,title,date,publishedAt";
+const fields = "id,title,airdate,publishedAt";
+const onePastQuery: MicroCMSQueries = {
+  limit: 1,
+  fields,
+  orders: "-airdate",
+  filters: `airdate[less_than]${article.airdate}`,
+};
+const oneFutureQuery: MicroCMSQueries = {
+  limit: 1,
+  fields,
+  orders: "airdate",
+  filters: `airdate[greater_than]${article.airdate}`,
+};
 
-const { data: pastOneArticles } = await useMicroCMSGetList<OnairProps>({
-  endpoint: "onairs",
-  queries: {
-    limit: 1,
-    fields,
-    orders: "-airdate",
-    filters: `airdate[less_than]${article.airdate}`,
-  },
-});
+const { data: pastOneArticles } = await useAsyncData<MicroCMSListResponse<OnairProps>>(
+  `onair_past_${article.id}_past`,
+  ()=> $fetch(`/api/onairs`,{
+    method: 'GET',
+    query: onePastQuery,
+  }),
+);
 const pastArticle = pastOneArticles.value?.contents[0];
 
-const { data: futureOneArticles } = await useMicroCMSGetList<OnairProps>({
-  endpoint: "onairs",
-  queries: {
-    limit: 1,
-    fields,
-    orders: "airdate",
-    filters: `airdate[greater_than]${article.airdate}`,
-  },
-});
+const { data: futureOneArticles } = await useAsyncData<MicroCMSListResponse<OnairProps>>(
+  `onair_${article.id}_future`,
+  ()=> $fetch(`/api/onairs`,{
+    method: 'GET',
+    query: oneFutureQuery,
+  }),
+);
 const futureArticle = futureOneArticles.value?.contents[0];
 </script>
 <template>
   <div class="flex mt-8 w-full font-tertiary ">
-    <NuxtLink v-if="pastArticle" :to="`/onair/${pastArticle.id}`" class="past button mr-auto">
-      <div class="icon">
-        <Icon name="ph:caret-left-light" />
-      </div>
-      <div class="title">
-        {{ pastArticle.title }}
-      </div>
-    </NuxtLink>
-    <NuxtLink v-if="futureArticle" :to="`/onair/${futureArticle.id}`" class="future button ml-auto">
-      <div class="icon">
-        <Icon name="ph:caret-right-light" />
-      </div>
-      <div class="title">
-        {{ futureArticle.title }}
-      </div>
-    </NuxtLink>
+    <template v-if="pastArticle">
+      <NuxtLink :to="`/onair/${pastArticle.id}`" class="past button mr-auto">
+        <div class="icon">
+          <Icon name="ph:caret-left-light" />
+        </div>
+        <div class="title">
+          {{ pastArticle.title }}
+        </div>
+      </NuxtLink>
+    </template>
+    <template v-if="futureArticle">
+      <NuxtLink  :to="`/onair/${futureArticle.id}`" class="future button ml-auto">
+        <div class="icon">
+          <Icon name="ph:caret-right-light" />
+        </div>
+        <div class="title">
+          {{ futureArticle.title }}
+        </div>
+      </NuxtLink>
+    </template>
   </div>
 </template>
 <style lang="sass" scoped>

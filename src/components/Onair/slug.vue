@@ -85,18 +85,17 @@ onMounted(()=>{
             <span>{{ articleDateInLondon }}</span>
           </div>
         </div>
-        <ClientOnly>
+        <ClientOnly v-if="article.soundcloud_embedcode">
           <div>
             <OnairPlayButton
-              v-if="article.soundcloud_embedcode"
               :embedcode="article.soundcloud_embedcode"
               class="flex items-center gap-4 bg-transparent border rounded-full p-[.33em] pl-[.5em] pr-[.7em] text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-tertiary font-bold  "
               :class="{
                 'border-red-500 text-red-500 hover:bg-red-500 hover:text-white': isActive,
                 'border-white/80 text-white  hover:text-black hover:border-black hover:bg-white': !isActive,
-
-                }"
-            >
+                
+              }"
+              >
               <template v-if="isActive">
                 STOP
               </template>
@@ -107,46 +106,51 @@ onMounted(()=>{
             </OnairPlayButton>
           </div>
         </ClientOnly>
-        <div
-          v-if="article.description"
-          class="font-secondary backdrop-blur-md border-white/10 border bg-black/10"
-        >
-          <span v-html="description"/>
-        </div>
+        <template v-if="article.description">
+          <div
+            class="font-secondary backdrop-blur-md border-white/10 border bg-black/10"
+          >
+            <span v-html="description"/>
+          </div>
+        </template>
 
       </div>
     </div>
-    <div v-if="tracklists" class="w-auto mr-4 lg:w-fit max-w-full  lg:mx-auto flex">
-      <div class="flex flex-col items-start gap-8">
-        <h2 class="sticky top-12 tracklist_title font-tertiary text-5xl lg:text-8xl font-bold text-transparent tracking-[.17em] lg:leading-[.7] translate-y-[6.6em] -rotate-90 origin-top-left w-[1em] h-[6.6em]">
-          TRACKLIST
-        </h2>
-      </div>
-      <div
-        v-if="article.tracklists"
-        class="flex flex-col items-stretch gap-8 lg:gap-10 max-w-[1000px] mx-auto"
-      >
-        <div
-          v-for="(tracklist, index) in tracklists"
-          :key="'tracklist-'+index"
-          class="font-secondary  py-1 px-2 md:p-0 text-sm lg:text-xl leading-snug backdrop-blur-lg bg-slate-950/40 lg:bg-black/0 lg:hover:bg-slate-950/70 transition-colors border-white/10 border "
-        >
-          <h3 class="font-primary font-extrabold text-2xl lg:text-4xl mb-[.5em] text-stroke-1 text-stroke-black">
-            <span class="after:content-['part:'] after:font-tertiary after:text-base after:ml-[.8em]">
-              {{ tracklist.artist?.[0] === 'guest' ? article.feat ? article.feat.name : 'GUEST' : article.host ? article.host[0] : 'Ascalypso B2B KA4U' }}
-            </span>
-          </h3>
-          <div class="text-stroke-1 text-stroke-black">
-            <span
-              v-html="tracklist.tracklist"
-            />
-          </div>
+    <template v-if="tracklists">
+      <div class="w-auto mr-4 lg:w-fit max-w-full  lg:mx-auto flex">
+        <div class="flex flex-col items-start gap-8">
+          <h2 class="sticky top-12 tracklist_title font-tertiary text-5xl lg:text-8xl font-bold text-transparent tracking-[.17em] lg:leading-[.7] translate-y-[6.6em] -rotate-90 origin-top-left w-[1em] h-[6.6em]">
+            TRACKLIST
+          </h2>
         </div>
+        <template v-if="article.tracklists">
+
+          <div
+          class="flex flex-col items-stretch gap-8 lg:gap-10 max-w-[1000px] mx-auto"
+          >
+          <div
+            v-for="(tracklist, index) in tracklists"
+            :key="'tracklist-'+index"
+            class="font-secondary  py-1 px-2 md:p-0 text-sm lg:text-xl leading-snug backdrop-blur-lg bg-slate-950/40 lg:bg-black/0 lg:hover:bg-slate-950/70 transition-colors border-white/10 border "
+            >
+              <h3 class="font-primary font-extrabold text-2xl lg:text-4xl mb-[.5em] text-stroke-1 text-stroke-black">
+                <span class="after:content-['part:'] after:font-tertiary after:text-base after:ml-[.8em]">
+                  {{ tracklist.artist?.[0] === 'guest' ? article.feat ? article.feat.name : 'GUEST' : article.host ? article.host[0] : 'Ascalypso B2B KA4U' }}
+                </span>
+              </h3>
+              <div class="text-stroke-1 text-stroke-black">
+                <span
+                v-html="tracklist.tracklist"
+                />
+              </div>
+            </div>
+          </div>
+        </template>
       </div>
-    </div>
+    </template>
     
     <OnairPastFutureButtons :article="article" class="mt-auto" />
-
+    
     <NuxtLink to="/" class="w-[80%] max-w-[400px] mx-auto mb-48 lg:mb-28 border-white/80 border h-[2.6em] flex items-center justify-center gap-[.5em] text-white text-xl md:text-2xl hover:text-lime-500 hover:border-lime-500 hover:bg-slate-950/30 active:bg-black active:duration-75 transition-colors">
       <Icon name="ph:caret-left-fill" />
       Home

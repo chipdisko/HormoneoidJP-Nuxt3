@@ -2,6 +2,7 @@
 export default defineNuxtConfig({
   routeRules: {
     '/': { prerender: true },
+    '/text': { prerender: true },
     '/onair/**': { prerender: true },
   },
   modules: [
@@ -28,6 +29,10 @@ export default defineNuxtConfig({
         wght: [200,400,700]
       }
     }
+  },
+  runtimeConfig: {
+    microcmsApiKey: process.env.NUXT_PRIVATE_MICROCMS_API_KEY || 'test',
+    microcmsServiceDomain: process.env.NUXT_PRIVATE_MICROCMS_SERVICE_DOMAIN || 'hormoneoidjp',
   },
   tailwindcss: {
     exposeConfig: true,

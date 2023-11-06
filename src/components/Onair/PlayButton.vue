@@ -16,8 +16,8 @@ const { isPlaying, playingId } = storeToRefs(soundcloudStore);
 
 const isDisabled = ref(false);
 const handlePlay = ():void => {
-  if ( !mySoundcloudId ) return;
   console.log('handlePlay', mySoundcloudId.value);
+  if ( !mySoundcloudId.value ) return;
   if ( playingId.value === mySoundcloudId.value ) {
     setPlayingId(null);
   } else {
