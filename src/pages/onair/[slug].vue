@@ -23,9 +23,6 @@ useSeoMeta({
   ogTitle: seoTitle,
   ogDescription: article.value?.description?.replace(/\n/g, '') ?? article.value?.title,
   ogImage: article.value?.jacket?.url ?? '',
-  twitterTitle: seoTitle,
-  twitterDescription: article.value?.description?.replace(/\n/g, '') ?? article.value?.title,
-  twitterImage: article.value?.jacket?.url ?? '',
   robots: 'follow, index'
 })
 </script>

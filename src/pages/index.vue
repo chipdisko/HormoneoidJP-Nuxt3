@@ -7,6 +7,7 @@ useSeoMeta({
   description: DESCRIPTION,
   ogTitle: TITLE,
   ogDescription: DESCRIPTION,
+  ogImage: undefined,
   robots: 'follow, index',
 });
 </script>
