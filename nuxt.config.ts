@@ -12,7 +12,6 @@ export default defineNuxtConfig({
     '@nuxtjs/google-fonts',
     '@pinia/nuxt',
     'nuxt-icon',
-    'nuxt-microcms-module',
     'nuxt-gtag',
   ],
   googleFonts: {
@@ -46,11 +45,6 @@ export default defineNuxtConfig({
       ],
     },
     pageTransition: { name: 'page', mode: 'out-in' }
-  },
-  microCMS: {
-    serviceDomain: process.env.NUXT_PRIVATE_MICROCMS_SERVICE_DOMAIN || 'hormoneoidjp',
-    apiKey: process.env.NUXT_PRIVATE_MICROCMS_API_KEY || 'test',
-    target: 'all',
   },
   css: ["~/assets/styles/app.sass"],
   gtag: {
