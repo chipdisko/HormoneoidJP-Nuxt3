@@ -34,7 +34,6 @@ export default defineEventHandler(async (event) => {
     draftKey: draftKey,
     richEditorFormat: richEditorFormat,
   };
-console.log(queries);
   const response = await client.getList<OnairProps>({
     endpoint: "onairs",
     queries: queries,

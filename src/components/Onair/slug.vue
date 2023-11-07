@@ -21,6 +21,7 @@ const tracklists = article.tracklists ? article.tracklists.map((tracklist) => {
     tracklist: nl2br(tracklist.tracklist)
   }
 }) : [];
+console.log(tracklists);
 
 // const readableArticle = article ? JSON.stringify(article, null, 2) : "";
 const { $extractSoundcloudIdFromEmbedcode } = useNuxtApp();
@@ -116,18 +117,16 @@ onMounted(()=>{
 
       </div>
     </div>
-    <template v-if="tracklists">
+    <template v-if="tracklists.length">
       <div class="w-auto mr-4 lg:w-fit max-w-full  lg:mx-auto flex">
         <div class="flex flex-col items-start gap-8">
           <h2 class="sticky top-12 tracklist_title font-tertiary text-5xl lg:text-8xl font-bold text-transparent tracking-[.17em] lg:leading-[.7] translate-y-[6.6em] -rotate-90 origin-top-left w-[1em] h-[6.6em]">
             TRACKLIST
           </h2>
         </div>
-        <template v-if="article.tracklists">
-
-          <div
+        <div
           class="flex flex-col items-stretch gap-8 lg:gap-10 max-w-[1000px] mx-auto"
-          >
+        >
           <div
             v-for="(tracklist, index) in tracklists"
             :key="'tracklist-'+index"
@@ -144,8 +143,7 @@ onMounted(()=>{
                 />
               </div>
             </div>
-          </div>
-        </template>
+        </div>
       </div>
     </template>
     
