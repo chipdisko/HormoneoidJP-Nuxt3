@@ -9,6 +9,9 @@ const { article } = defineProps<{
   article: OnairProps;
 }>();
 
+// debug
+article.airdate = new Date('2023-11-07 22:50:50').toISOString();
+
 const articleDateInLondon = $getOnairTime(article.airdate) ?? '';
 
 function nl2br(str:string):string {
@@ -17,7 +20,7 @@ function nl2br(str:string):string {
 const description = article.description ? nl2br(article.description) : '';
 
 const nowISOstring = ref<string>(new Date().toISOString());
-const isOnair = ref<boolean>(false);
+const isOnair = ref<boolean>(true);
 
 const tracklists = article.tracklists ? article.tracklists.map((tracklist) => {
   return {
@@ -29,22 +32,22 @@ const tracklists = article.tracklists ? article.tracklists.map((tracklist) => {
 const { $extractSoundcloudIdFromEmbedcode } = useNuxtApp();
 const isActive = ref(false);
 const mySoundcloudId = ref<number | null>(null);
+const airdate = new Date(article.airdate);
+const onairEnd = new Date(airdate.setHours(airdate.getHours() + 2));
 onMounted( ()=> {
-  isOnair.value = new Date(article.airdate) < new Date(nowISOstring.value);
+  isOnair.value = onairEnd < new Date(nowISOstring.value);
 
-  if(article.soundcloud_embedcode){
+  if (article.soundcloud_embedcode) {
     mySoundcloudId.value = $extractSoundcloudIdFromEmbedcode(article.soundcloud_embedcode) ?? null;
-    const soundcloudStore = useSoundcloud()
-    const { isPlaying, playingId } = storeToRefs(soundcloudStore)
-    effect(() => {
-      isActive.value = isPlaying.value && playingId.value === mySoundcloudId.value;
-    })
+    const soundcloudStore = useSoundcloud();
+    const { isPlaying, playingId } = storeToRefs(soundcloudStore);
+    isActive.value = isPlaying.value && playingId.value === mySoundcloudId.value;
+
     watch( [ isPlaying, playingId ], () => {
       isActive.value = isPlaying.value && playingId.value === mySoundcloudId.value;
     })
   }
 });
-
 </script>
 
 <template>
