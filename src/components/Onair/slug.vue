@@ -10,7 +10,7 @@ const { article } = defineProps<{
 }>();
 
 // debug
-article.airdate = new Date('2023-11-07 22:46:20').toISOString();
+// article.airdate = new Date('2023-11-07 22:46:20').toISOString();
 
 const articleDateInLondon = $getOnairTime(article.airdate) ?? '';
 
