@@ -9,7 +9,7 @@ type Link = {
   type: 'twitter' | 'instagram' | 'facebook' | 'youtube' | 'spotify' | 'apple' | 'amazon' | 'soundcloud' | 'bandcamp' | 'homepage';
   type_id: string;
 }
-export type Guest = {
+export type Artist = {
   name: string;
   biography?: string;
   links?: Link[];
@@ -27,7 +27,7 @@ export type Onair = {
   airdate: string; // ISO8601
   theme?: string;
   jacket?: MicroCMSImage;
-  feat?: (MicroCMSListContent & Guest);
+  feat?: (MicroCMSListContent & Artist);
   host?: ('KA4U' | 'Ascalypso')[];
   description?: string;
   tracklists?: Tracklist[];
