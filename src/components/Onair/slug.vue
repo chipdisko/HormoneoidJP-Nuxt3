@@ -15,19 +15,23 @@ function nl2br(str:string):string {
   return str.replace(/\n/g, '<br>');
 }
 const description = article.description ? nl2br(article.description) : '';
+
+const nowISOstring = ref<string>(new Date().toISOString());
+const isOnair = ref<boolean>(false);
+
 const tracklists = article.tracklists ? article.tracklists.map((tracklist) => {
   return {
     ...tracklist,
     tracklist: nl2br(tracklist.tracklist)
   }
 }) : [];
-console.log(tracklists);
 
-// const readableArticle = article ? JSON.stringify(article, null, 2) : "";
 const { $extractSoundcloudIdFromEmbedcode } = useNuxtApp();
 const isActive = ref(false);
 const mySoundcloudId = ref<number | null>(null);
-onMounted(()=>{
+onMounted( ()=> {
+  isOnair.value = new Date(article.airdate) < new Date(nowISOstring.value);
+
   if(article.soundcloud_embedcode){
     mySoundcloudId.value = $extractSoundcloudIdFromEmbedcode(article.soundcloud_embedcode) ?? null;
     const soundcloudStore = useSoundcloud()
@@ -39,7 +43,7 @@ onMounted(()=>{
       isActive.value = isPlaying.value && playingId.value === mySoundcloudId.value;
     })
   }
-})
+});
 
 </script>
 
@@ -86,6 +90,9 @@ onMounted(()=>{
             <span>{{ articleDateInLondon }}</span>
           </div>
         </div>
+        <template v-if="!isOnair">
+          <OnairCountdown :deadline="article.airdate" />
+        </template>
         <ClientOnly v-if="article.soundcloud_embedcode">
           <div>
             <OnairPlayButton
@@ -150,9 +157,7 @@ onMounted(()=>{
     <OnairPastFutureButtons :article="article" class="mt-auto" />
     
     <NuxtLink to="/" class="w-[80%] max-w-[400px] mx-auto mb-48 lg:mb-28 border-white/80 border h-[2.6em] flex items-center justify-center gap-[.5em] text-white text-xl md:text-2xl hover:text-lime-500 hover:border-lime-500 hover:bg-slate-950/30 active:bg-black active:duration-75 transition-colors">
-      <ClientOnly>
-        <Icon name="ph:caret-left-fill" />
-      </ClientOnly>
+      <Icon name="ph:caret-left-fill" />
       Home
     </NuxtLink>
   </div>
