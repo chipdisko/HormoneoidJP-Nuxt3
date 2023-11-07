@@ -45,10 +45,6 @@ export default defineNuxtConfig({
     },
     pageTransition: { name: 'page', mode: 'out-in' }
   },
-  microCMS: {
-    serviceDomain: process.env.NUXT_PRIVATE_MICROCMS_SERVICE_DOMAIN || 'hormoneoidjp',
-    apiKey: process.env.NUXT_PRIVATE_MICROCMS_API_KEY || 'test',
-  },
   css: ["~/assets/styles/app.sass"],
   gtag: {
     id:'G-MRJ4NS13FV'

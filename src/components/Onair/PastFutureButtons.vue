@@ -7,6 +7,7 @@ const { article } = defineProps<{
 }>();
 
 const fields = "id,title,airdate,publishedAt";
+
 const onePastQuery: MicroCMSQueries = {
   limit: 1,
   fields,
@@ -37,6 +38,7 @@ const { data: futureOneArticles } = await useAsyncData<MicroCMSListResponse<Onai
   }),
 );
 const futureArticle = futureOneArticles.value?.contents[0];
+
 </script>
 <template>
   <div class="flex mt-8 w-full font-tertiary ">
