@@ -45,7 +45,7 @@ onMounted(() => {
 <template>
   <NuxtLink
     to="https://aajamusic.com/"
-    class="flex flex-col gap-3 border border-white bg-black/60 rounded-lg  p-2 w-fit md:text-5xl lg:text-6xl xl:text-8xl hover:bg-black/100 hover:scale-105 transition-all duration-200 ease-in-out"
+    class="flex flex-col gap-3 border border-white bg-black/60 rounded-lg  p-2 w-fit text-3xl md:text-5xl lg:text-6xl xl:text-8xl hover:bg-black/100 hover:scale-105 transition-all duration-200 ease-in-out"
   >
 
     <h3 
