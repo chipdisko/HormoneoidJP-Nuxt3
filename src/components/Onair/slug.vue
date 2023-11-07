@@ -30,6 +30,7 @@ const tracklists = article.tracklists ? article.tracklists.map((tracklist) => {
 const { $extractSoundcloudIdFromEmbedcode } = useNuxtApp();
 const isSoundcloudActive = ref(false);
 const mySoundcloudId = ref<number | null>(null);
+
 const isOnairEnd = ref<boolean>();
 const airdate = new Date(article.airdate);
 const onairEnd = new Date(airdate.setHours(airdate.getHours() + 2));
@@ -41,8 +42,8 @@ onMounted( ()=> {
     mySoundcloudId.value = $extractSoundcloudIdFromEmbedcode(article.soundcloud_embedcode) ?? null;
     const soundcloudStore = useSoundcloud();
     const { isPlaying, playingId } = storeToRefs(soundcloudStore);
+    
     isSoundcloudActive.value = isPlaying.value && playingId.value === mySoundcloudId.value;
-
     watch( [ isPlaying, playingId ], () => {
       isSoundcloudActive.value = isPlaying.value && playingId.value === mySoundcloudId.value;
     })
@@ -124,8 +125,8 @@ onMounted( ()=> {
             disabled
             class="flex items-center justify-center gap-4 bg-transparent border rounded-full p-[.33em] pl-[.5em] pr-[.7em] text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-tertiary font-bold border-white/80 text-white "
           >The archive coming in days</button>
-
         </template>
+        
         <template v-if="article.description">
           <div
             class="font-secondary backdrop-blur-md border-white/10 border bg-black/10"

@@ -11,26 +11,22 @@ const { article } = defineProps<Props>();
 const description = article.description ? article.description.replace(/\n/g, '').substring(0, 140) + '...' : '';
 
 const { $extractSoundcloudIdFromEmbedcode } = useNuxtApp();
+const isSoundcloudActive = ref(false);
 const mySoundcloudId = ref<number | null>(null);
-const isActive = ref(false);
 
-const isOnairEnd = ref<boolean>();
 const airdate = new Date(article.airdate);
 const onairEnd = new Date(airdate.setHours(airdate.getHours() + 2));
 const now = ref(new Date());
+const isOnairEnd = ref<boolean>(onairEnd < now.value);
 
 onMounted(() => {
-  isOnairEnd.value = onairEnd < now.value;
-
-  if(article.soundcloud_embedcode){
+  if( article.soundcloud_embedcode ) {
     mySoundcloudId.value = $extractSoundcloudIdFromEmbedcode(article.soundcloud_embedcode) ?? null;
-    const soundcloudStore = useSoundcloud()
-    const { isPlaying, playingId } = storeToRefs(soundcloudStore)
-    effect(() => {
-      isActive.value = isPlaying.value && playingId.value === mySoundcloudId.value;
-    })
-    watch( [ isPlaying, playingId ], () => {
-      isActive.value = isPlaying.value && playingId.value === mySoundcloudId.value;
+    const soundcloudStore = useSoundcloud();
+    const { isPlaying, playingId } = storeToRefs(soundcloudStore);
+    
+    watch( [isPlaying, playingId], () => {
+      isSoundcloudActive.value = isPlaying.value && (playingId.value === mySoundcloudId.value);
     })
   }
 })
@@ -60,17 +56,18 @@ onMounted(() => {
       </template>
       <template v-else-if="article.soundcloud_embedcode">
         <ClientOnly>
+          <div>
             <OnairPlayButton
-            :embedcode="article.soundcloud_embedcode"
-            class="play_button mt-6 border rounded-full flex items-center justify-center h-16 w-16 text-5xl opacity-80 hover:opacity-90 drop-shadow-md"
-            :class="{
-              'border-red-500 text-white bg-red-400/70 hover:bg-red-500 hover:text-white': isActive,
-              'border-white text-white hover:bg-red-500/80': !isActive,
-            }"
-          />
+              :embedcode="article.soundcloud_embedcode"
+              class="play_button mt-6 border rounded-full flex items-center justify-center h-16 w-16 text-5xl opacity-80 hover:opacity-90 drop-shadow-md"
+              :class="{
+                'border-red-500 text-white bg-red-400/70 hover:bg-red-500 hover:text-white': isSoundcloudActive,
+                'border-white text-white hover:bg-red-500/80': !isSoundcloudActive,
+              }"
+            />
+          </div>
         </ClientOnly>
       </template>
-      <template else></template>
 
       <NuxtLink
         :to="`/onair/${article.id}`" 
