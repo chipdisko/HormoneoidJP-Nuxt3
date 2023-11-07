@@ -10,7 +10,7 @@ const { article } = defineProps<{
 }>();
 
 // debug
-article.airdate = new Date('2023-11-07 22:55:50').toISOString();
+article.airdate = new Date('2023-11-07 22:46:20').toISOString();
 
 const articleDateInLondon = $getOnairTime(article.airdate) ?? '';
 
@@ -19,8 +19,6 @@ function nl2br(str:string):string {
 }
 const description = article.description ? nl2br(article.description) : '';
 
-const nowISOstring = ref<string>(new Date().toISOString());
-const isOnair = ref<boolean>(true);
 
 const tracklists = article.tracklists ? article.tracklists.map((tracklist) => {
   return {
@@ -30,13 +28,15 @@ const tracklists = article.tracklists ? article.tracklists.map((tracklist) => {
 }) : [];
 
 const { $extractSoundcloudIdFromEmbedcode } = useNuxtApp();
+const isOnairEnd = ref<boolean>();
 const isActive = ref(false);
 const mySoundcloudId = ref<number | null>(null);
 const airdate = new Date(article.airdate);
 const onairEnd = new Date(airdate.setHours(airdate.getHours() + 2));
+const now = ref(new Date());
+isOnairEnd.value = onairEnd < now.value;
 onMounted( ()=> {
-  isOnair.value = onairEnd < new Date(nowISOstring.value);
-
+  isOnairEnd.value = onairEnd < new Date();
   if (article.soundcloud_embedcode) {
     mySoundcloudId.value = $extractSoundcloudIdFromEmbedcode(article.soundcloud_embedcode) ?? null;
     const soundcloudStore = useSoundcloud();
@@ -77,7 +77,7 @@ onMounted( ()=> {
         </template>
       </div>
       <div class="flex flex-col gap-8 md:gap-12">
-        <div class="font-official uppercase text-6xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl">
+        <div class="font-official uppercase text-[3.45rem] leading-none sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl">
           <div class="line-text">
             {{ article.channel ?? 'Hormoneoid JP' }}
           </div>
@@ -93,30 +93,39 @@ onMounted( ()=> {
             <span>{{ articleDateInLondon }}</span>
           </div>
         </div>
-        <template v-if="!isOnair">
+        <template v-if="!isOnairEnd">
           <OnairCountdown :deadline="article.airdate" />
         </template>
-        <ClientOnly v-if="article.soundcloud_embedcode">
-          <div>
-            <OnairPlayButton
-              :embedcode="article.soundcloud_embedcode"
-              class="flex items-center gap-4 bg-transparent border rounded-full p-[.33em] pl-[.5em] pr-[.7em] text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-tertiary font-bold  "
-              :class="{
-                'border-red-500 text-red-500 hover:bg-red-500 hover:text-white': isActive,
-                'border-white/80 text-white  hover:text-black hover:border-black hover:bg-white': !isActive,
-                
-              }"
-              >
-              <template v-if="isActive">
-                STOP
-              </template>
-              <template v-else>
-                PLAY
-              </template>  
-              THE ONAIR
-            </OnairPlayButton>
-          </div>
-        </ClientOnly>
+        <template v-else-if="article.soundcloud_embedcode">
+          <ClientOnly>
+            <div>
+              <OnairPlayButton
+                :embedcode="article.soundcloud_embedcode"
+                class="flex items-center gap-4 bg-transparent border rounded-full p-[.33em] pl-[.5em] pr-[.7em] text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-tertiary font-bold  "
+                :class="{
+                  'border-red-500 text-red-500 hover:bg-red-500 hover:text-white': isActive,
+                  'border-white/80 text-white  hover:text-black hover:border-black hover:bg-white': !isActive,
+                  
+                }"
+                >
+                <template v-if="isActive">
+                  STOP
+                </template>
+                <template v-else>
+                  PLAY
+                </template>  
+                THE ONAIR
+              </OnairPlayButton>
+            </div>
+          </ClientOnly>
+        </template>
+        <template v-else>
+          <button
+          disabled
+            class="flex items-center justify-center gap-4 bg-transparent border rounded-full p-[.33em] pl-[.5em] pr-[.7em] text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-tertiary font-bold border-white/80 text-white "
+          >The archive coming in days</button>
+
+        </template>
         <template v-if="article.description">
           <div
             class="font-secondary backdrop-blur-md border-white/10 border bg-black/10"

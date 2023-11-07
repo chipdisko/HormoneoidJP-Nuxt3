@@ -10,42 +10,48 @@ const seconds = ref(0);
 const deadlineTime = Date.parse(deadline);
 const airdate = new Date(deadlineTime);
 const onairEndTime = new Date(airdate.setHours(airdate.getHours() + 2)).getTime();
-
+const isLoading = ref(true);
 const isOnair = ref(false);
+const isOnairEnd = ref(false);
 
 onMounted(() => {
   const refreshTime = () => {
+    if(isOnair.value) return;
+
     const timeLeft = deadlineTime - Date.now();
     if (timeLeft < 0) {
       isOnair.value = true;
-      clearInterval(timer);
     }
     days.value = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
     hours.value = Math.floor((timeLeft / (1000 * 60 * 60)) % 24);
     minutes.value = Math.floor((timeLeft / 1000 / 60) % 60);
     seconds.value = Math.floor((timeLeft / 1000) % 60);
   };
+
   const waitOnairFinish = () => {
+    if(!isOnair.value) return;
     const timeLeft = onairEndTime - Date.now();
+    console.log('timeLeft', timeLeft)
     if (timeLeft < 0) {
       isOnair.value = false;
       clearInterval(timer);
+      isOnairEnd.value = true;
     }
   }
 
   const timer = setInterval(() => {
-    isOnair.value ? waitOnairFinish() : refreshTime()
+    refreshTime();
+    waitOnairFinish();
   }, 1000);
-
-
   onUnmounted(() => clearInterval(timer));
+  isLoading.value = false;
 });
 </script>
 
 <template>
   <NuxtLink
     to="https://aajamusic.com/"
-    class="flex flex-col gap-[.1em] md:gap-[.2em] border border-white bg-black/60 rounded-lg p-1 sm:p-2 w-fit text-3xl md:text-5xl lg:text-6xl xl:text-8xl hover:bg-black/100 hover:scale-105 transition-all duration-200 ease-in-out"
+    class="flex flex-col gap-[.1em] md:gap-[.2em] border border-white bg-black/60 rounded-lg p-1 sm:p-2 w-fit text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl hover:bg-black/100 hover:scale-105 transition-all duration-200 ease-in-out"
   >
 
     <h3 
@@ -54,7 +60,11 @@ onMounted(() => {
         'text-red-400': isOnair,
       }"
     >
-      <template v-if="isOnair">
+      <template v-if="isOnairEnd">
+        <Icon name="arcticons:simplethankyou" />
+        THANKS FOR LISTENING
+      </template>
+      <template v-else-if="isOnair">
         <span class="text-red-600 inline-flex items-center justify-center">
           <Icon name="svg-spinners:pulse-rings-2" />
         </span>
@@ -70,28 +80,35 @@ onMounted(() => {
       </template>
     </h3>
     <div
-      class=" border border-white/10 rounded text-black/90 font-seg backdrop-blur-md p-2.5 w-fit gap-[.2em] shadow-inner shadow-black/30"
+      class=" border border-white/10 rounded text-black/90 font-seg backdrop-blur-md p-1 md:p-2.5 w-fit gap-[.2em] shadow-inner shadow-black/30 leading-tight"
       :class="{
         'bg-red-400 ': isOnair,
         'bg-[#95A843]': !isOnair,
       }"
     >
-      <template v-if="isOnair">
+      <template v-if="isOnairEnd">
+        <span class="text-burned before:content-['~~~~~~~~']">
+          <span>FINISHED</span>
+        </span>
+      </template>
+      <template v-else-if="isOnair">
         <span class="text-burned before:content-['~~~~~~~~']">
           <span>AAJA_CH2</span>
         </span>
       </template>
       <template v-else>
         <span class="text-burned before:content-['~~']">
-          <ClientOnly>
+          <ClientOnly fallback="~~">
             <span>{{ days < 10 ? `0${days}` : days }}</span>
           </ClientOnly>
         </span>
         <span class="text-burned text-[.6em] text-black/90 before:content-['~~~~']">
-          <span>days</span>
+          <ClientOnly fallback="~~~~">
+            <span>days</span>
+          </ClientOnly>
         </span>
         <span class="text-burned before:content-['~~:~~:~~']">
-          <ClientOnly>
+          <ClientOnly fallback="~~:~~:~~">
             <span>
               {{ hours < 10 ? `0${hours}` : hours }}:{{ minutes < 10 ? `0${minutes}` : minutes }}:{{ seconds < 10 ? `0${seconds}` : seconds }}
             </span>
