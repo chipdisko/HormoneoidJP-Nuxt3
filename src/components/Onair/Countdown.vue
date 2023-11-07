@@ -51,18 +51,19 @@ onMounted(() => {
 <template>
   <NuxtLink
     to="https://aajamusic.com/"
-    class="flex flex-col gap-[.1em] md:gap-[.2em] border border-white bg-black/60 rounded-lg p-1 sm:p-2 w-fit text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl hover:bg-black/100 hover:scale-105 transition-all duration-200 ease-in-out"
+    class="flex flex-col gap-[.1em] md:gap-[.2em] border border-white bg-black/60 rounded-lg p-1 sm:p-2 w-fit hover:bg-black/100 hover:scale-105 transition-all duration-200 ease-in-out"
   >
 
     <h3 
-      class="font-primary pt-[.1em] text-[.6em] xl:text-4xl flex items-center gap-[.2em]"
+      class="title font-primary pt-[.1em] flex items-center gap-[.3em] md:gap-[.2em]"
+
       :class="{
         'text-red-400': isOnair,
       }"
     >
       <template v-if="isOnairEnd">
-        <Icon name="arcticons:simplethankyou" />
-        THANKS FOR LISTENING
+        <Icon name="icon-park-outline:broadcast-radio" />
+        ONAIR FINISHED
       </template>
       <template v-else-if="isOnair">
         <span class="text-red-600 inline-flex items-center justify-center">
@@ -74,13 +75,13 @@ onMounted(() => {
       </template>
       <template v-else>
         <Icon name="icon-park-outline:broadcast-radio" />
-        UPCOMING COUNTDOWN
+        ONAIR COUNTDOWN
         <Icon name="streamline:interface-share-satellite-broadcast-satellite-share-transmit" />
         <LogoAaja class="h-[1em] fill-white  ml-auto mr-[.2em]" />
       </template>
     </h3>
     <div
-      class=" border border-white/10 rounded text-black/90 font-seg backdrop-blur-md p-1 md:p-2.5 w-fit gap-[.2em] shadow-inner shadow-black/30 leading-tight"
+      class=" border border-white/10 rounded text-black/90 font-seg backdrop-blur-md p-[.1em] w-fit gap-[.2em] shadow-inner shadow-black/30 leading-tight"
       :class="{
         'bg-red-400 ': isOnair,
         'bg-[#95A843]': !isOnair,
@@ -88,7 +89,7 @@ onMounted(() => {
     >
       <template v-if="isOnairEnd">
         <span class="text-burned before:content-['~~~~~~~~']">
-          <span>FINISHED</span>
+          <span>THANK YOU</span>
         </span>
       </template>
       <template v-else-if="isOnair">
@@ -124,4 +125,7 @@ onMounted(() => {
   @apply inline-grid before:text-black/5
   > *, &::before
     grid-area: 1/-1
+.title
+  font-size: clamp(1.08rem, .6em, 2.25rem)
 </style>
+

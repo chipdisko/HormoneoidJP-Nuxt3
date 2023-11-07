@@ -10,7 +10,7 @@ const { article } = defineProps<{
 }>();
 
 // debug
-// article.airdate = new Date('2023-11-07 22:46:20').toISOString();
+//article.airdate = new Date('2023-11-08 01:37:20').toISOString();
 
 const articleDateInLondon = $getOnairTime(article.airdate) ?? '';
 
@@ -28,9 +28,9 @@ const tracklists = article.tracklists ? article.tracklists.map((tracklist) => {
 }) : [];
 
 const { $extractSoundcloudIdFromEmbedcode } = useNuxtApp();
-const isOnairEnd = ref<boolean>();
-const isActive = ref(false);
+const isSoundcloudActive = ref(false);
 const mySoundcloudId = ref<number | null>(null);
+const isOnairEnd = ref<boolean>();
 const airdate = new Date(article.airdate);
 const onairEnd = new Date(airdate.setHours(airdate.getHours() + 2));
 const now = ref(new Date());
@@ -41,10 +41,10 @@ onMounted( ()=> {
     mySoundcloudId.value = $extractSoundcloudIdFromEmbedcode(article.soundcloud_embedcode) ?? null;
     const soundcloudStore = useSoundcloud();
     const { isPlaying, playingId } = storeToRefs(soundcloudStore);
-    isActive.value = isPlaying.value && playingId.value === mySoundcloudId.value;
+    isSoundcloudActive.value = isPlaying.value && playingId.value === mySoundcloudId.value;
 
     watch( [ isPlaying, playingId ], () => {
-      isActive.value = isPlaying.value && playingId.value === mySoundcloudId.value;
+      isSoundcloudActive.value = isPlaying.value && playingId.value === mySoundcloudId.value;
     })
   }
 });
@@ -94,7 +94,7 @@ onMounted( ()=> {
           </div>
         </div>
         <template v-if="!isOnairEnd">
-          <OnairCountdown :deadline="article.airdate" />
+          <OnairCountdown :deadline="article.airdate" class="text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl" />
         </template>
         <template v-else-if="article.soundcloud_embedcode">
           <ClientOnly>
@@ -103,12 +103,12 @@ onMounted( ()=> {
                 :embedcode="article.soundcloud_embedcode"
                 class="flex items-center gap-4 bg-transparent border rounded-full p-[.33em] pl-[.5em] pr-[.7em] text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-tertiary font-bold  "
                 :class="{
-                  'border-red-500 text-red-500 hover:bg-red-500 hover:text-white': isActive,
-                  'border-white/80 text-white  hover:text-black hover:border-black hover:bg-white': !isActive,
+                  'border-red-500 text-red-500 hover:bg-red-500 hover:text-white': isSoundcloudActive,
+                  'border-white/80 text-white  hover:text-black hover:border-black hover:bg-white': !isSoundcloudActive,
                   
                 }"
                 >
-                <template v-if="isActive">
+                <template v-if="isSoundcloudActive">
                   STOP
                 </template>
                 <template v-else>
@@ -121,7 +121,7 @@ onMounted( ()=> {
         </template>
         <template v-else>
           <button
-          disabled
+            disabled
             class="flex items-center justify-center gap-4 bg-transparent border rounded-full p-[.33em] pl-[.5em] pr-[.7em] text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-tertiary font-bold border-white/80 text-white "
           >The archive coming in days</button>
 

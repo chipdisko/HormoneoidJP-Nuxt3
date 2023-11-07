@@ -9,12 +9,20 @@ type Props = {
 };
 const { article } = defineProps<Props>();
 const description = article.description ? article.description.replace(/\n/g, '').substring(0, 140) + '...' : '';
+
+const { $extractSoundcloudIdFromEmbedcode } = useNuxtApp();
 const mySoundcloudId = ref<number | null>(null);
 const isActive = ref(false);
 
+const isOnairEnd = ref<boolean>();
+const airdate = new Date(article.airdate);
+const onairEnd = new Date(airdate.setHours(airdate.getHours() + 2));
+const now = ref(new Date());
+
 onMounted(() => {
+  isOnairEnd.value = onairEnd < now.value;
+
   if(article.soundcloud_embedcode){
-    const { $extractSoundcloudIdFromEmbedcode } = useNuxtApp();
     mySoundcloudId.value = $extractSoundcloudIdFromEmbedcode(article.soundcloud_embedcode) ?? null;
     const soundcloudStore = useSoundcloud()
     const { isPlaying, playingId } = storeToRefs(soundcloudStore)
@@ -29,7 +37,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="wrapper group relative flex flex-col rounded-lg bg-black w-fit hover:scale-105 transition-transform .2s ease-in-out">
+  <div class="wrapper max-w-full min-w-full md:min-w-0 group relative flex flex-col rounded-lg bg-black w-fit hover:scale-105 transition-transform .2s ease-in-out">
     <Image
       :alt="article.title"
       :src="article.jacket?.url"
@@ -47,9 +55,12 @@ onMounted(() => {
       <h3 class="title text-2xl text-stroke-1 text-stroke-black font-primary font-bold tracking-wider sm:text-3xl">
         {{ article.title }}
       </h3>
-      <ClientOnly>
-        <template v-if="article.soundcloud_embedcode">
-          <OnairPlayButton
+      <template v-if="!isOnairEnd">
+        <OnairCountdown :deadline="article.airdate" class="text-3xl mt-6" />
+      </template>
+      <template v-else-if="article.soundcloud_embedcode">
+        <ClientOnly>
+            <OnairPlayButton
             :embedcode="article.soundcloud_embedcode"
             class="play_button mt-6 border rounded-full flex items-center justify-center h-16 w-16 text-5xl opacity-80 hover:opacity-90 drop-shadow-md"
             :class="{
@@ -57,8 +68,9 @@ onMounted(() => {
               'border-white text-white hover:bg-red-500/80': !isActive,
             }"
           />
-        </template>
-      </ClientOnly>
+        </ClientOnly>
+      </template>
+      <template else></template>
 
       <NuxtLink
         :to="`/onair/${article.id}`" 

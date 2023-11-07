@@ -20,7 +20,7 @@ const queries: MicroCMSQueries = {
   fields: "id,airdate,title,jacket,description,soundcloud_embedcode",
   limit: numLimit,
   offset: (page - 1) * numLimit,
-  filters: `airdate[less_than]${nowISOstring.value}`,
+  //filters: `airdate[less_than]${nowISOstring.value}`,
 };
 
 const { data } = await useAsyncData<MicroCMSListResponse<OnairProps>>(
@@ -33,7 +33,11 @@ const { data } = await useAsyncData<MicroCMSListResponse<OnairProps>>(
 
 const widths = ref<number[]>([]);
 for (let i = 0; i < Number(limit); i++) {
-  widths.value.push(Math.floor(Math.random() * 140) + 200);
+  if(i === 0) {
+    widths.value.push(320);
+    continue;
+  }
+  widths.value.push(Math.floor(Math.random() * 120) + 240);
 }
 
 //const numPages = Math.ceil((data.value?.totalCount || 0) / numLimit);
