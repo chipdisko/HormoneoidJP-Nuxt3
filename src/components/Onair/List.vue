@@ -37,7 +37,7 @@ for (let i = 0; i < Number(limit); i++) {
     widths.value.push(320);
     continue;
   }
-  widths.value.push(Math.floor(Math.random() * 120) + 240);
+  widths.value.push(Math.floor(Math.random() * 120) + 260);
 }
 
 //const numPages = Math.ceil((data.value?.totalCount || 0) / numLimit);
@@ -45,7 +45,7 @@ for (let i = 0; i < Number(limit); i++) {
 </script>
 
 <template>
-  <div class="flex gap-8 flex-wrap px-4">
+  <div class="flex gap-12 sm:gap-8 flex-col sm:flex-row sm:flex-wrap px-4">
     <OnairCard v-for="article, index in data?.contents" :key="'list_'+article.id"  :article="article" class="z-10" :style="{ width: widths[index] + 'px' }" />
   </div>
 </template>

@@ -33,7 +33,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="wrapper max-w-full min-w-full md:min-w-0 group relative flex flex-col rounded-lg bg-black w-fit hover:scale-105 transition-transform .2s ease-in-out">
+  <div class="wrapper max-w-[90%] min-w-[90%] sm:max-w-[45%] sm:min-w-[45%] mx-auto sm:mx-0 md:min-w-0 group relative flex flex-col rounded-lg bg-black w-fit hover:scale-105 transition-transform .2s ease-in-out">
     <Image
       :alt="article.title"
       :src="article.jacket?.url"
