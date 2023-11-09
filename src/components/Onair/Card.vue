@@ -71,7 +71,7 @@ onMounted(() => {
         :to="`/onair/${article.id}`" 
         class="btn mt-6 p-2 font-tertiary text-sm font-medium border-black/70 bg-black/30 group-hover:bg-black/70 text-lime-500 hover:text-lime-300 uppercase tracking-widest "
       >
-        CHECK
+        Archive
         <Icon name="solar:map-arrow-right-linear" />
       </NuxtLink>
     </div>
