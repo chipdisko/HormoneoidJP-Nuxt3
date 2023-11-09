@@ -29,13 +29,9 @@ const handlePlay = ():void => {
     isDisabled.value = false;
   }, 1000);
 }
-
 const isActive = ref(false);
-effect(() => {
-  isActive.value = isPlaying.value && playingId.value === mySoundcloudId.value;
-})
 
-watch( [ isPlaying, playingId ], () => {
+watchEffect( () => {
   isActive.value = isPlaying.value && playingId.value === mySoundcloudId.value;
 })
 
@@ -51,9 +47,12 @@ watch( [ isPlaying, playingId ], () => {
     }"
   >
     <ClientOnly>
+      <template #fallback>
+        <Icon v-if="isDisabled" name="svg-spinners:ring-resize" />
+      </template>
       <Icon v-if="isDisabled" name="svg-spinners:ring-resize" />
       <Icon v-else-if="isActive" name="svg-spinners:pulse-rings-2" />
-      <Icon v-else name="mdi:play" />
+      <Icon v-else name="mingcute:play-line" />
     </ClientOnly>
     <slot />
   </button>

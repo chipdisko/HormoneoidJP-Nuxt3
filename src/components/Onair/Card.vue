@@ -25,7 +25,7 @@ onMounted(() => {
     const soundcloudStore = useSoundcloud();
     const { isPlaying, playingId } = storeToRefs(soundcloudStore);
     
-    watch( [isPlaying, playingId], () => {
+    watchEffect(() => {
       isSoundcloudActive.value = isPlaying.value && (playingId.value === mySoundcloudId.value);
     })
   }
@@ -33,7 +33,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="wrapper max-w-[90%] min-w-[90%] sm:max-w-[45%] sm:min-w-[45%] mx-auto sm:mx-0 md:min-w-0 group relative flex flex-col rounded-lg bg-black w-fit hover:scale-105 transition-transform .2s ease-in-out">
+  <article class="wrapper max-w-[90%] min-w-[90%] sm:max-w-[45%] sm:min-w-[45%] mx-auto sm:mx-0 md:min-w-0 group relative flex flex-col rounded-lg bg-black w-fit hover:scale-105 transition-transform .2s ease-in-out">
     <Image
       :alt="article.title"
       :src="article.jacket?.url"
@@ -52,31 +52,27 @@ onMounted(() => {
         {{ article.title }}
       </h3>
       <template v-if="!isOnairEnd">
-        <OnairCountdown :deadline="article.airdate" class="text-3xl mt-6" />
+        <OnairCountdown :deadline="article.airdate" is="div" class="text-3xl mt-6" />
       </template>
       <template v-else-if="article.soundcloud_embedcode">
-        <ClientOnly>
-          <div>
-            <OnairPlayButton
-              :embedcode="article.soundcloud_embedcode"
-              class="play_button mt-6 border rounded-full flex items-center justify-center h-16 w-16 text-5xl opacity-80 hover:opacity-90 drop-shadow-md"
-              :class="{
-                'border-red-500 text-white bg-red-400/70 hover:bg-red-500 hover:text-white': isSoundcloudActive,
-                'border-white text-white hover:bg-red-500/80': !isSoundcloudActive,
-              }"
-            />
-          </div>
-        </ClientOnly>
+        <div>
+          <OnairPlayButton
+            :embedcode="article.soundcloud_embedcode"
+            class="play_button mt-6 border-2 rounded-full flex items-center justify-center h-16 w-16 text-4xl opacity-80 hover:opacity-90 drop-shadow-md"
+            :class="{
+              'border-red-500 text-white bg-red-400/70 hover:bg-red-500 hover:text-white': isSoundcloudActive,
+              'border-white text-white hover:bg-red-500/80': !isSoundcloudActive,
+            }"
+          />
+        </div>
       </template>
 
       <NuxtLink
         :to="`/onair/${article.id}`" 
         class="btn mt-6 p-2 font-tertiary text-sm font-medium border-black/70 bg-black/30 group-hover:bg-black/70 text-lime-500 hover:text-lime-300 uppercase tracking-widest "
       >
-        Read More
-        <ClientOnly>
-          <Icon name="mdi:book-open-page-variant-outline" />
-        </ClientOnly>
+        CHECK
+        <Icon name="solar:map-arrow-right-linear" />
       </NuxtLink>
     </div>
     <div class="w-full mt-auto">
@@ -90,7 +86,7 @@ onMounted(() => {
         </template>
       </div>
     </div>
-  </div>
+  </article>
 </template>
 <style scoped lang="sass">
 .wrapper

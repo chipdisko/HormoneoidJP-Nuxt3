@@ -36,6 +36,8 @@ const airdate = new Date(article.airdate);
 const onairEnd = new Date(airdate.setHours(airdate.getHours() + 2));
 const now = ref(new Date());
 isOnairEnd.value = onairEnd < now.value;
+
+
 onMounted( ()=> {
   isOnairEnd.value = onairEnd < new Date();
   if (article.soundcloud_embedcode) {
@@ -44,7 +46,7 @@ onMounted( ()=> {
     const { isPlaying, playingId } = storeToRefs(soundcloudStore);
     
     isSoundcloudActive.value = isPlaying.value && playingId.value === mySoundcloudId.value;
-    watch( [ isPlaying, playingId ], () => {
+    watchEffect( () => {
       isSoundcloudActive.value = isPlaying.value && playingId.value === mySoundcloudId.value;
     })
   }
@@ -52,8 +54,8 @@ onMounted( ()=> {
 </script>
 
 <template>
-<section
-  class="section"
+<article
+  class="article"
 >
   <NuxtImg
     v-if="article.jacket"
@@ -95,7 +97,7 @@ onMounted( ()=> {
           </div>
         </div>
         <template v-if="!isOnairEnd">
-          <OnairCountdown :deadline="article.airdate" class="text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl" />
+          <OnairCountdown skeuo aaja :deadline="article.airdate" class="text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl w-fit border border-white bg-black/60 hover:bg-black/100 hover:scale-105" />
         </template>
         <template v-else-if="article.soundcloud_embedcode">
           <ClientOnly>
@@ -174,7 +176,7 @@ onMounted( ()=> {
       Home
     </NuxtLink>
   </div>
-</section>
+</article>
 
 </template>
 <style lang="sass" scoped>
@@ -183,7 +185,7 @@ onMounted( ()=> {
 
 .bg
   // animation opacity and filter on tailwind.config
-  @apply animate-text-focus-in
+  @apply animate-text-focus-in opacity-60
 .frame
   box-shadow: 0 0 0 5px black, 0 0 0 6px white
   @screen md

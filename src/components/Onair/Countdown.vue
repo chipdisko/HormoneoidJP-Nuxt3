@@ -1,7 +1,12 @@
 <script setup lang="ts">
-const { deadline } = defineProps<{
+const { deadline, is, skeuo, aaja } = defineProps<{
   deadline: string;
+  is?: string;
+  skeuo?: boolean;
+  aaja?: boolean;
 }>();
+
+const NuxtLink = resolveComponent('NuxtLink');
 
 const days = ref(0);
 const hours = ref(0);
@@ -46,12 +51,14 @@ onMounted(() => {
   onUnmounted(() => clearInterval(timer));
   isLoading.value = false;
 });
+console.log(is);
 </script>
 
 <template>
-  <NuxtLink
+  <component
+    :is=" is ? is : NuxtLink"
     to="https://aajamusic.com/"
-    class="flex flex-col gap-[.1em] md:gap-[.2em] border border-white bg-black/60 rounded-lg p-1 sm:p-2 w-fit hover:bg-black/100 hover:scale-105 transition-all duration-200 ease-in-out"
+    class="flex flex-col gap-[.1em] md:gap-[.2em] rounded-lg p-1 sm:p-2 transition-all duration-200 ease-in-out"
   >
 
     <h3 
@@ -71,20 +78,20 @@ onMounted(() => {
         </span>
         ONAIR NOW
         <Icon name="streamline:interface-share-satellite-broadcast-satellite-share-transmit" />
-        <LogoAaja class="h-[1em] fill-red-400 ml-auto mr-[.2em]" />
+        <LogoAaja v-if="aaja" class="h-[1em] fill-red-400 ml-auto mr-[.2em]" />
       </template>
       <template v-else>
         <Icon name="icon-park-outline:broadcast-radio" />
-        ONAIR COUNTDOWN
-        <Icon name="streamline:interface-share-satellite-broadcast-satellite-share-transmit" />
-        <LogoAaja class="h-[1em] fill-white  ml-auto mr-[.2em]" />
+        ONAIR UPCOMING
+        <LogoAaja  v-if="aaja"  class="h-[1em] fill-white  ml-auto mr-[.2em]" />
       </template>
     </h3>
     <div
-      class=" border border-white/10 rounded text-black/90 font-seg backdrop-blur-md p-[.1em] w-fit gap-[.2em] shadow-inner shadow-black/30 leading-tight"
+      class=" border border-white/10 rounded  font-seg backdrop-blur-md p-[.1em] w-fit gap-[.2em] shadow-inner shadow-black/20 leading-tight"
       :class="{
-        'bg-red-400 ': isOnair,
-        'bg-[#95A843]': !isOnair,
+        'text-black/90': skeuo,
+        'bg-red-400 ': skeuo && isOnair,
+        'bg-[#95A843]': skeuo && !isOnair,
       }"
     >
       <template v-if="isOnairEnd">
@@ -103,7 +110,7 @@ onMounted(() => {
             <span>{{ days < 10 ? `0${days}` : days }}</span>
           </ClientOnly>
         </span>
-        <span class="text-burned text-[.6em] text-black/90 before:content-['~~~~']">
+        <span class="text-burned text-[.6em] before:content-['~~~~']">
           <ClientOnly fallback="~~~~">
             <span>days</span>
           </ClientOnly>
@@ -117,7 +124,7 @@ onMounted(() => {
         </span>
       </template>
     </div>
-  </NuxtLink>
+  </component>
 </template>
 
 <style scoped lang="sass">
