@@ -3,11 +3,6 @@ import type { Onair as OnairProps } from "~/types/microcms";
 const { params } = useRoute();
 const slug =  Array.isArray(params.slug) ? params.slug[0] : params.slug
 
-// const { data: article } = await useMicroCMSGetListDetail<OnairProps>({
-//   endpoint: "onairs",
-//   contentId: slug,
-// });
-
 const { data: article } = await useAsyncData<OnairProps>(
   `onair_${slug}`,
   ()=> $fetch(`/api/onairs/${slug}`,{
