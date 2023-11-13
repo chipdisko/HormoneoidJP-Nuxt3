@@ -37,4 +37,4 @@ const handleOpener = () => {
       </div>
     </div>
   </div>
-</template>
+</template>~~/store/soundcloud

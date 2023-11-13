@@ -1,4 +1,4 @@
-import type { Onair as OnairProps } from "~/types/microcms";
+import type { Onair as OnairProps } from "~~/types/microcms";
 import type { MicroCMSQueries } from "microcms-js-sdk";
 import { createClient } from "microcms-js-sdk";
 type depthNumber = 0 | 1 | 2 | 3;

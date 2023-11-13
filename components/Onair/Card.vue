@@ -92,3 +92,4 @@ onMounted(() => {
 .wrapper
   box-shadow: 0 0 0 5px black, 0 0 0 6px white
 </style>
+~~/store/soundcloud~~/types/microcms

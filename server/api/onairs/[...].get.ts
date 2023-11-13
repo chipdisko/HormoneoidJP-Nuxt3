@@ -1,4 +1,4 @@
-import type { Onair as OnairProps } from "~/types/microcms";
+import type { Onair as OnairProps } from "~~/types/microcms";
 import { createClient } from "microcms-js-sdk";
 
 export default defineEventHandler(async (event) => {

@@ -49,3 +49,4 @@ for (let i = 0; i < Number(limit); i++) {
     <OnairCard v-for="article, index in data?.contents" :key="'list_'+article.id"  :article="article" class="z-10" :style="{ width: widths[index] + 'px' }" />
   </div>
 </template>
+~~/types/microcms

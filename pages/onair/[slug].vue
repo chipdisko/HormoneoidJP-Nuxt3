@@ -25,3 +25,4 @@ useSeoMeta({
 <template>
   <OnairSlug v-if="article" :article="article" />
 </template>
+~~/types/microcms

@@ -61,3 +61,4 @@ watchEffect( () => {
 .button:disabled
   @apply bg-transparent border-slate-100 text-slate-100
 </style>
+~~/store/soundcloud

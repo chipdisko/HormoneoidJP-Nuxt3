@@ -50,5 +50,4 @@ export default defineNuxtConfig({
     id:'G-MRJ4NS13FV'
   },
   devtools: { enabled: true },
-  srcDir: 'src/',
 })

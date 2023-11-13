@@ -36,7 +36,6 @@ onMounted(() => {
   const waitOnairFinish = () => {
     if(!isOnair.value) return;
     const timeLeft = onairEndTime - Date.now();
-    console.log('timeLeft', timeLeft)
     if (timeLeft < 0) {
       isOnair.value = false;
       clearInterval(timer);
@@ -51,7 +50,6 @@ onMounted(() => {
   onUnmounted(() => clearInterval(timer));
   isLoading.value = false;
 });
-console.log(is);
 </script>
 
 <template>

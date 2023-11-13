@@ -123,3 +123,4 @@ const futureArticle = futureOneArticles.value?.contents[0];
         transition-delay: .1s
 </style>
 
+~~/types/microcms
