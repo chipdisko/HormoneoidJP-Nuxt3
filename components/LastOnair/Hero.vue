@@ -31,7 +31,7 @@ onMounted(()=>{
       <!-- component -->
       <div class="lg:h-screen">
         <div class="from-indigo-700 bg-gradient-to-r to-black w-full h-full px-8 pt-24 pb-16 md:px-24 lg:p-19 xl:p-28 ">
-          <div class="h-full max-w-3xl mx-auto flex flex-col justify-center">
+          <div class="h-full max-w-lg mx-auto flex flex-col justify-center">
             <div class="aspect-square w-full">
               <img :src="lastOnairArticle.feat.photo.url" alt="mobile payment" class="h-full w-full object-cover object-bottom" />
             </div>
@@ -44,15 +44,15 @@ onMounted(()=>{
                     <li>guest</li>
                   </ul>
                 </nav>
-                <h1 class="font-tertiary font-bold mt-4 text-xl text-white transform group-hover:translate-x-6 duration-300 uppercase leading-snug">
+                <h1 class="font-tertiary font-bold mt-4 text-xl text-white transform group-hover:translate-x-6 duration-300 uppercase leading-snug bg-indigo-800">
                   <span class="w-fit bg-white text-indigo-800 block">Lomax ____</span>
-                  (NC4K)<br/> from Kyoto
+                  <span class=" block">(NC4K)<br/> from Kyoto</span>
                 </h1>
                 <div class="flex flex-col gap-2">
                   <div v-html="lastOnairArticle.feat.biography" class=" text-white text-sm md:text-md font-secondary"></div>
                 </div>
                 <div class="text-lg md:text-2xl text-center font-primary border border-white rounded-full py-2 px-8 ">ARCHIVE COMING SOON!</div>
-                <NuxtLink :to="`/onair/${lastOnairArticle.id}`"  class="hidden md:flex absolute z-50 bottom-0 md:bottom-auto left-1/2 md:left-auto md:-top-12 md:-right-12 items-center justify-center w-20 h-20 rounded-full bg-white group-hover:bg-green-200 text-indigo-800 group-hover:text-white font-semibold cursor-pointer group-hover:scale-110 duration-300 select-none">
+                <NuxtLink :to="`/onair/${lastOnairArticle.id}`"  class="hidden md:flex absolute z-50 bottom-0 md:bottom-auto left-1/2 md:left-auto md:-top-12 md:-right-12 items-center justify-center w-20 h-20 rounded-full bg-white group-hover:bg-indigo-600 text-indigo-800 group-hover:text-white font-semibold cursor-pointer group-hover:scale-110 duration-300 select-none">
                   Tracklist
                 </NuxtLink>
               </div>
