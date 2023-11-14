@@ -100,27 +100,25 @@ onMounted( ()=> {
             <OnairCountdown skeuo aaja :deadline="article.airdate" class="text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl w-fit border border-white bg-black/60 hover:bg-black/100 hover:scale-105" />
           </template>
           <template v-else-if="article.soundcloud_embedcode">
-            <ClientOnly>
-              <div>
-                <OnairPlayButton
-                  :embedcode="article.soundcloud_embedcode"
-                  class="flex items-center gap-4 bg-transparent border rounded-full p-[.33em] pl-[.5em] pr-[.7em] text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-tertiary font-bold  "
-                  :class="{
-                    'border-red-500 text-red-500 hover:bg-red-500 hover:text-white': isSoundcloudActive,
-                    'border-white/80 text-white  hover:text-black hover:border-black hover:bg-white': !isSoundcloudActive,
-                    
-                  }"
-                  >
-                  <template v-if="isSoundcloudActive">
-                    STOP
-                  </template>
-                  <template v-else>
-                    PLAY
-                  </template>  
-                  THE ONAIR
-                </OnairPlayButton>
-              </div>
-            </ClientOnly>
+            <div>
+              <OnairPlayButton
+                :embedcode="article.soundcloud_embedcode"
+                class="flex items-center gap-4 bg-transparent border rounded-full p-[.33em] pl-[.5em] pr-[.7em] text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-tertiary font-bold  "
+                :class="{
+                  'border-red-500 text-red-500 hover:bg-red-500 hover:text-white': isSoundcloudActive,
+                  'border-white/80 text-white  hover:text-black hover:border-black hover:bg-white': !isSoundcloudActive,
+                  
+                }"
+                >
+                <template v-if="isSoundcloudActive">
+                  STOP
+                </template>
+                <template v-else>
+                  PLAY
+                </template>  
+                THE ONAIR
+              </OnairPlayButton>
+            </div>
           </template>
           <template v-else>
             <button

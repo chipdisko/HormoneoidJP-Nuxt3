@@ -52,7 +52,7 @@ watchEffect( () => {
       </template>
       <Icon v-if="isDisabled" name="svg-spinners:ring-resize" />
       <Icon v-else-if="isActive" name="svg-spinners:pulse-rings-2" />
-      <Icon v-else name="mingcute:play-line" />
+      <Icon v-else name="line-md:play-filled" />
     </ClientOnly>
     <slot />
   </button>

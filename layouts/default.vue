@@ -1,11 +1,5 @@
 <template>
-  <div class="layout">
-    <Header />
-    <main id="main">
-      <slot />
-    </main>
-    <LazySoundcloudPlayer />
-  </div>
+  <slot />
 </template>
 <style lang="sass" scoped>
 </style>
