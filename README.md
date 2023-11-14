@@ -2,6 +2,11 @@
 
 Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
+microCMSとVERCELを利用したラジオ番組のウェブサイト。  
+ISR対応。  
+オンエア時間に切り替わるカウントダウンが見どころ。  
+
+
 ## Setup
 
 Make sure to install the dependencies:
