@@ -1,6 +1,6 @@
 <template>
   <template v-if="newSrc">
-    <img :src="newSrc" :width="width" :height="height" />
+    <NuxtImg :src="newSrc" :width="width" :height="height" />
   </template>
   <template v-else>
     <span class="no-image">
