@@ -124,7 +124,7 @@ onMounted( ()=> {
             <button
               disabled
               class="flex items-center justify-center gap-4 bg-transparent border rounded-full p-[.33em] pl-[.5em] pr-[.7em] text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-tertiary font-bold border-white/80 text-white "
-            >The archive coming in days</button>
+            >coming soon</button>
           </template>
           
           <template v-if="article.description">
