@@ -17,7 +17,7 @@ const { page, pagination, limit } = withDefaults(defineProps<Props>(), {
 const numLimit: number = Number(limit);
 const nowISOstring = ref<string>(new Date().toISOString());
 const queries: MicroCMSQueries = {
-  fields: "id,airdate,title,jacket,description,soundcloud_embedcode",
+  fields: "id,airdate,title,jacket,host,feat,description,soundcloud_embedcode",
   limit: numLimit,
   offset: (page - 1) * numLimit,
   //filters: `airdate[less_than]${nowISOstring.value}`,
