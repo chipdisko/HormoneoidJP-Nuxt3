@@ -37,6 +37,9 @@ export default defineNuxtConfig({
   },
   app: {
     head: {
+      htmlAttrs: {
+        lang: 'en'
+      },
       title: 'Hormoneoid JP -- from Osaka to London and the world.',
       meta: [{ name: 'description', content: 'You are listening to Hormoneoid JP. Enjoy!!' }],
       link: [

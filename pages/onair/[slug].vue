@@ -11,13 +11,19 @@ const { data: article } = await useAsyncData<OnairProps>(
 );
 
 const seoTitle = `${article.value?.title ?? 'a radio archive'} ${article.value?.theme ? `THEME:${article.value.theme}` : ''} | a radio archive on Hormoneoid JP hosted on AAJA CH2`;
-
+const seoDescription = article.value?.description?.replace(/\n/g, '') ?? article.value?.title;
+const seoImage = article.value?.jacket?.url ?? '';
 useSeoMeta({
   title: seoTitle,
-  description: article.value?.description?.replace(/\n/g, '') ?? article.value?.title,
+  description: seoDescription,
   ogTitle: seoTitle,
-  ogDescription: article.value?.description?.replace(/\n/g, '') ?? article.value?.title,
-  ogImage: article.value?.jacket?.url ?? '',
+  ogDescription: seoDescription,
+  ogImage: seoImage,
+  ogUrl: `https://hormoneoid.w1dr.ink/onair/${article.value?.id}`,
+  twitterTitle: seoTitle,
+  twitterDescription: seoDescription,
+  twitterImage: seoImage,
+  twitterCard: 'summary',
   robots: 'follow, index'
 })
 </script>
