@@ -51,7 +51,7 @@ onMounted(()=>{
                 <div class="flex flex-col gap-2">
                   <div v-html="lastOnairArticle.feat.biography" class=" text-white text-sm md:text-md font-secondary"></div>
                 </div>
-                <div class="text-lg md:text-2xl text-center font-primary border border-white rounded-full py-2 px-8 ">ARCHIVE COMING SOON!</div>
+                <NuxtLink :to="`/onair/${lastOnairArticle.id}`"  class="text-lg md:text-2xl text-center font-primary border border-white rounded-full py-2 px-8 hover:text-indigo-800 hover:bg-white">CHECK ARCHIVE</NuxtLink>
                 <NuxtLink :to="`/onair/${lastOnairArticle.id}`"  class="hidden md:flex absolute z-50 bottom-0 md:bottom-auto left-1/2 md:left-auto md:-top-12 md:-right-12 items-center justify-center w-20 h-20 rounded-full bg-white group-hover:bg-indigo-600 text-indigo-800 group-hover:text-white font-semibold cursor-pointer group-hover:scale-110 duration-300 select-none">
                   Tracklist
                 </NuxtLink>
