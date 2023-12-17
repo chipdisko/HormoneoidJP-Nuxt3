@@ -13,7 +13,7 @@ useSeoMeta({
 </script>
 <template>
   <div class="lg:flex">
-    <LastOnairHero class="lg:w-[45%] shrink-0 grow-0" />
+    <!-- <LastOnairHero class="lg:w-[45%] shrink-0 grow-0" /> -->
     <OnairPage />
   </div>
 </template>
