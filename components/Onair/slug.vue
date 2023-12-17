@@ -178,6 +178,13 @@ onMounted( ()=> {
 
 </template>
 <style lang="sass" scoped>
+.line-text
+  -webkit-text-stroke: 1px white
+  color: transparent
+      
+.text-shadow-far
+  text-shadow:1px 1px 0px #111,2px 2px 0px #111, 3px 3px 0px #111
+
 .tracklist_title
   -webkit-text-stroke: 2px #FFF
 
@@ -190,9 +197,6 @@ onMounted( ()=> {
     position: relative
     top: 6px
     left: 6px
-.line-text
-  -webkit-text-stroke: 1px white
-  color: transparent
 .img_parent
   perspective: 1500px
 .img
@@ -207,7 +211,4 @@ onMounted( ()=> {
       transform: rotateY(0deg)
       img
         opacity: 1
-.text-shadow-far
-  text-shadow:1px 1px 0px #111,2px 2px 0px #111, 3px 3px 0px #111
 </style>
-~~/store/soundcloud~~/types/microcms
