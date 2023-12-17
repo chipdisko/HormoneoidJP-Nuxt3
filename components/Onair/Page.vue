@@ -7,8 +7,6 @@
     <div class="copyright font-official text-6xl md:text-8xl lg:text-9xl px-2 mt-12 left-0 pl-8 ">
       <div class=" font-extralight">&copy; HORMONEOID JP</div>
       <div class=" font-light text-black text-stroke-1 tracking-wide">&copy; HORMONEOID JP</div>
-      <div class=" font-bold tracking-wider">HORMONEOID JP</div>
-      <div class=" font-extrabold text-black text-stroke-2 tracking-widest">HORMONEOID JP</div>
     </div>
 
   </div>
