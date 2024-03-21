@@ -6,6 +6,7 @@
 .cache
 .vscode
 bun.lockb
+yarn.lock
 dist
 
 # Node dependencies
