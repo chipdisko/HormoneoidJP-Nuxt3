@@ -17,7 +17,7 @@ export type Artist = {
 }
 
 type Tracklist = {
-  artist: ('guest' | 'host')[];
+  artist: ('guest' | 'guest2'| 'host')[];
   tracklist: string;
   image: MicroCMSImage;
 }
@@ -27,7 +27,7 @@ export type Onair = {
   airdate: string; // ISO8601
   theme?: string;
   jacket?: MicroCMSImage;
-  feat?: (MicroCMSListContent & Artist);
+  feat?: (MicroCMSListContent & Artist)[];
   host?: ('KA4U' | 'Ascalypso')[];
   description?: string;
   tracklists?: Tracklist[];

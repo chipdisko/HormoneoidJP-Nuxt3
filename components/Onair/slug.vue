@@ -27,6 +27,17 @@ const tracklists = article.tracklists ? article.tracklists.map((tracklist) => {
   }
 }) : [];
 
+const getArtistNameByParticipantType = (participantType: 'host' | 'guest' | 'guest2') => {
+  switch (participantType) {
+    case 'guest':
+      return article.feat ? article.feat[0].name : 'GUEST';
+    case 'guest2':
+      return article.feat ? article.feat[1].name : 'GUEST2';
+    default:
+      return article.host ? article.host[0] : 'Ascalypso B2B KA4U';
+  }
+}
+
 const { $extractSoundcloudIdFromEmbedcode } = useNuxtApp();
 const isSoundcloudActive = ref(false);
 const mySoundcloudId = ref<number | null>(null);
@@ -53,6 +64,7 @@ onMounted( ()=> {
     })
   }
 });
+
 </script>
 
 <template>
@@ -133,7 +145,7 @@ onMounted( ()=> {
             <div
               class="font-secondary backdrop-blur-md border-white/10 border bg-black/10"
             >
-              <span v-html="description"/>
+              <span v-html="description" />
             </div>
           </template>
 
@@ -156,7 +168,7 @@ onMounted( ()=> {
               >
                 <h3 class="font-primary font-extrabold text-2xl lg:text-4xl mb-[.5em] text-stroke-1 text-stroke-black">
                   <span class="after:content-['part:'] after:font-tertiary after:text-base after:ml-[.8em]">
-                    {{ tracklist.artist?.[0] === 'guest' ? article.feat ? article.feat.name : 'GUEST' : article.host ? article.host[0] : 'Ascalypso B2B KA4U' }}
+                    {{ getArtistNameByParticipantType(tracklist.artist?.[0]) }}
                   </span>
                 </h3>
                 <div class="text-stroke-1 text-stroke-black">
