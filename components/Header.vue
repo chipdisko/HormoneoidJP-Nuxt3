@@ -10,7 +10,7 @@
             <h1><Logo class="text-3xl" /></h1>
           </NuxtLink>
           <span class="text-[.8em] flex gap-2 items-center font-tertiary tracking-tighter">
-            on <NuxtLink to="https://aajamusic.com/"><LogoAaja class="fill-white w-4 hover:fill-orange-800" /></NuxtLink> CH2
+            on <NuxtLink to="https://aajamusic.com/"><LogoAaja class="fill-white w-4 hover:fill-orange-800" /></NuxtLink> CH1
           </span>
         </div>
         <!-- buttons
