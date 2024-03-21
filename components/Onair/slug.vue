@@ -7,7 +7,7 @@ const { $getOnairTime } = useNuxtApp(); // ~/plugin/linkType.ts
 
 const { article } = defineProps<{
   article: OnairProps;
-}>();
+}>(); 
 
 // debug
 //article.airdate = new Date('2023-11-08 01:37:20').toISOString();
@@ -37,8 +37,10 @@ const onairEnd = new Date(airdate.setHours(airdate.getHours() + 2));
 const now = ref(new Date());
 isOnairEnd.value = onairEnd < now.value;
 
+const isOnMounted = ref(false);
 
 onMounted( ()=> {
+  isOnMounted.value = true;
   isOnairEnd.value = onairEnd < new Date();
   if (article.soundcloud_embedcode) {
     mySoundcloudId.value = $extractSoundcloudIdFromEmbedcode(article.soundcloud_embedcode) ?? null;
@@ -66,7 +68,7 @@ onMounted( ()=> {
     />
     <div class="relative z-[1] flex flex-col gap-16 lg:gap-20 pt-24 min-h-[100dvh] box-border">
       <div class="img_parent flex flex-col sm:flex-row gap-4 ms:gap-6 md:gap-12 lg:gap-16 xl:gap-20 2xl:max-w-screen-2xl mx-4 md:mx-12 lg:mx-20 2xl:mx-auto">
-        <div class="img w-full sm:w-[260px] md:w-[400px] lg:w-[500px] self-start shrink-0 grow-0 frame relative flex flex-col rounded-lg bg-black transition-transform .2s ease-in-out ">
+        <div :class="['img w-full sm:w-[260px] md:w-[400px] lg:w-[500px] self-start shrink-0 grow-0 frame relative flex flex-col rounded-lg bg-black transition-transform  ease-in-out', isOnMounted ? 'active' : '']">
           <template v-if="article.jacket" >
             <NuxtImg
               :src="article.jacket.url"
@@ -202,13 +204,17 @@ onMounted( ()=> {
 .img
   @screen lg
     transform-style: preserve-3d
+    backface-visibility: hidden
+    transition-duration: .8s
+    transition-delay: .4s
     transform-origin: 0 0
-    transform: rotateY(30deg) skewY(-6deg)
+    transform: rotateY(120deg) skewY(-6deg)
     img
       transition: opacity .2s ease-in-out
       opacity: .9
-    &:hover
-      transform: rotateY(0deg)
+    &:hover,
+    &.active
+      transform: rotateY(0deg) skewY(0deg)
       img
         opacity: 1
 </style>
