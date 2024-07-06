@@ -11,7 +11,7 @@ type Props = {
 const { page, pagination, limit } = withDefaults(defineProps<Props>(), {
   page: 1,
   pagination: false,
-  limit: 20,
+  limit: 100,
 });
 
 const numLimit: number = Number(limit);
