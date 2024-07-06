@@ -1,4 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+const TITLE = 'Hormoneoid JP | a dj mix archive on AAJA CH1'; 
+const DESCRIPTION = 'You are listening to Hormoneoid JP. Enjoy!!';
+
 export default defineNuxtConfig({
   routeRules: {
     '/': { prerender: true },
@@ -40,10 +43,13 @@ export default defineNuxtConfig({
       htmlAttrs: {
         lang: 'en'
       },
-      title: 'Hormoneoid JP -- from Osaka to London and the world.',
+      title: TITLE,
       meta: [
-        { name: 'description', content: 'You are listening to Hormoneoid JP. Enjoy!!' },
-        {name: 'google-site-verification', content: "rnSiI5cIPYNQeywBxSf5AIUFp1TtmMeyDZwxBe-vpek"}
+        { name: 'description', content: DESCRIPTION },
+        { name: 'og:title', content: TITLE },
+        { name: 'og:description', content: DESCRIPTION },
+        { name: 'google-site-verification', content: "rnSiI5cIPYNQeywBxSf5AIUFp1TtmMeyDZwxBe-vpek" },
+        { name: 'robots', content: 'index, follow' },
       ],
       link: [
         { rel: 'icon', href: '/favicon.ico' },

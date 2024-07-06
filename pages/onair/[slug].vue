@@ -10,7 +10,7 @@ const { data: article } = await useAsyncData<OnairProps>(
   }),
 );
 
-const seoTitle = `${article.value?.title ?? 'a radio archive'} ${article.value?.theme ? `THEME:${article.value.theme}` : ''} | a radio archive on Hormoneoid JP hosted on AAJA CH2`;
+const seoTitle = `${article.value?.title ?? 'a radio archive'} ${article.value?.theme ? `THEME:${article.value.theme}` : ''} | a radio archive on Hormoneoid JP hosted on AAJA CH1`;
 const seoDescription = article.value?.description?.replace(/\n/g, '') ?? article.value?.title;
 const seoImage = article.value?.jacket?.url ?? '';
 useSeoMeta({
