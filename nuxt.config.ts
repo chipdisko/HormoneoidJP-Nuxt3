@@ -41,7 +41,10 @@ export default defineNuxtConfig({
         lang: 'en'
       },
       title: 'Hormoneoid JP -- from Osaka to London and the world.',
-      meta: [{ name: 'description', content: 'You are listening to Hormoneoid JP. Enjoy!!' }],
+      meta: [
+        { name: 'description', content: 'You are listening to Hormoneoid JP. Enjoy!!' },
+        {name: 'google-site-verification', content: "rnSiI5cIPYNQeywBxSf5AIUFp1TtmMeyDZwxBe-vpek"}
+      ],
       link: [
         { rel: 'icon', href: '/favicon.ico' },
       ],
