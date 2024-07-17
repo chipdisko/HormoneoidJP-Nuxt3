@@ -12,7 +12,7 @@ export default defineSitemapEventHandler(async () => {
   const response = await client.getList<OnairProps>({
     endpoint: "onairs",
   }).then((data) => data.contents.map(p => asSitemapUrl({
-    loc: p.id,
+    loc: `/onair/${p.id}`,
   }))).catch((err) => {
     console.log(err)
     return { contents:[] };
