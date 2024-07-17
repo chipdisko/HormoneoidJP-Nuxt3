@@ -2,8 +2,10 @@ import type { Onair as OnairProps } from "~~/types/microcms";
 import { createClient } from "microcms-js-sdk";
 
 export default defineEventHandler(async (event) => {
-  const slug = event.context.params._;
-  
+  const slug = event.context.params?._;
+  if (!slug) {
+    return { contents:[] };
+  }
   const config = useRuntimeConfig(event);
   const client = createClient({
     serviceDomain: config.microcmsServiceDomain,
