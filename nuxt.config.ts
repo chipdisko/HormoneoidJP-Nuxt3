@@ -7,15 +7,19 @@ export default defineNuxtConfig({
     '/': { prerender: true },
     '/onair/**': { prerender: true },
   },
-  modules: [
-    //'@vueuse/nuxt',
-    '@nuxt/image',
-    '@nuxtjs/tailwindcss',
-    '@nuxtjs/google-fonts',
-    '@pinia/nuxt',
-    'nuxt-icon',
-    'nuxt-gtag',
-  ],
+  site: {
+    url: 'https://hormoneoid.w1dr.ink',
+    name: TITLE,
+    description: DESCRIPTION,
+    defaultLocale: 'en',
+  },
+  sitemap: {
+    sources: [
+      '/api/__sitemap__/onairs',
+    ]
+  },
+  modules: [//'@vueuse/nuxt',
+  '@nuxt/image', '@nuxtjs/tailwindcss', '@nuxtjs/google-fonts', '@pinia/nuxt', 'nuxt-icon', 'nuxt-gtag', '@nuxtjs/seo'],
   googleFonts: {
     families: {
       'Dosis': {
@@ -37,6 +41,12 @@ export default defineNuxtConfig({
   },
   tailwindcss: {
     exposeConfig: true,
+  },
+  site: {
+    url: 'https://hormoneoid.w1dr.ink',
+    name: TITLE,
+    description: DESCRIPTION,
+    defaultLocale: 'en',
   },
   app: {
     head: {
